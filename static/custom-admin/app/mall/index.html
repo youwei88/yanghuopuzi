@@ -1,0 +1,898 @@
+<div id="modals">
+    <div class="modal fade" id="modal-img-view" tabindex="-1" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="text-align: center">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">预览</h4>
+                </div>
+                <div class="modal-body">
+                    <img src="" alt="" width="200px;"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn dark btn-outline radius6" data-dismiss="modal"><i
+                            class="fa fa-close"></i> 关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-add" tabindex="-1" role="basic" aria-hidden="true">
+        <div class="modal-dialog" style="width: 400px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">添加首页轮播图</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:;" method="post">
+                        <table class="table table-striped table-bordered " width="100%">
+                            <tr>
+                                <th>序号</th>
+                                <td>
+                                    <input type="number" class=" input-medium form-control inline " name="orderNo"
+                                           maxlength="16" value="">
+                                    <span class="required-star">* </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>图片</th>
+                                <td>
+                                    <div class="pull-left">
+                                        <input type="file" class="hidden">
+                                        <a href="javascript:void(0)" style="width: 100px;height: 100px;"
+                                           class="btn-upload">
+                                            <span class="img-tip">选择图片</span>
+                                            <img name="img" src="" width="100" height="100">
+                                        </a>
+                                        <input type="hidden" name="img" value=""/>
+                                        <span class="required-star">* 建议尺寸：?*?px，大小不超过150k</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>链接类型</th>
+                                <td>
+                                    <select class=" input-medium form-control inline urlType" name="hrefType"
+                                            onchange="verify('modal-add')">
+                                        <option value="">请选择链接类型</option>
+                                        <option value="20009">商品</option>
+                                        <option value="20010">类型</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="goods" style="display: none">
+                                <th>商品</th>
+                                <td>
+                                    <input class=" input-medium form-control inline " name="dataId"
+                                           placeholder="商品编号"/>
+                                </td>
+                            </tr>
+                            <tr class="type" style="display: none">
+                                <th>类型</th>
+                                <td>
+                                    <select class=" input-medium form-control inline select-goods-type " name="dataId">
+                                        <option value="">--请选择类型--</option>
+                                    </select>
+                                    <input type="hidden" name="dataName" data-ref="dataId" value=""/>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn dark green btn-save radius6"><i class="fa fa-save"></i> 添加</button>
+                    <button type="button" class="btn dark btn-outline radius6" data-dismiss="modal"><i
+                            class="fa fa-close"></i> 关闭
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="modal-edit" tabindex="-1" role="basic" aria-hidden="true">
+        <div class="modal-dialog" style="width: 400px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">修改首页轮播图</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:;" method="post">
+                        <input type="hidden" name="id" value=""/>
+                        <table class="table table-striped table-bordered " width="100%">
+                            <tr>
+                                <th>序号</th>
+                                <td>
+                                    <input type="number" class=" input-medium form-control inline " name="orderNo"
+                                           maxlength="16" value="">
+                                    <span class="required-star">* </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>图片</th>
+                                <td>
+                                    <div class="pull-left">
+                                        <input type="file" class="hidden">
+                                        <a href="javascript:void(0)" style="width: 100px;height: 100px;"
+                                           class="btn-upload">
+                                            <span class="img-tip">选择图片</span>
+                                            <img name="img" src="" width="100" height="100">
+                                        </a>
+                                        <input type="hidden" name="img" value=""/>
+                                        <span class="required-star">* 建议尺寸：?*?px，大小不超过150k</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>链接类型</th>
+                                <td>
+                                    <select class=" input-medium form-control inline urlType" name="hrefType"
+                                            onchange="verify('modal-edit')">
+                                        <option value="">请选择链接类型</option>
+                                        <option value="20009">商品</option>
+                                        <option value="20010">类型</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="goods" style="display: none">
+                                <th>商品</th>
+                                <td>
+                                    <input type="text" class=" input-medium form-control inline input-goods-no"
+                                           name="dataId"
+                                           placeholder="商品编号"/>
+                                </td>
+                            </tr>
+                            <tr class="type" style="display: none">
+                                <th>类型</th>
+                                <td>
+                                    <select class=" input-medium form-control inline select-goods-type " name="dataId">
+                                        <option value="">--请选择类型--</option>
+                                    </select>
+                                    <input type="hidden" name="dataName" data-ref="dataId" value=""/>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn dark green btn-save radius6"><i class="fa fa-check"></i> 保存
+                    </button>
+                    <button type="button" class="btn dark btn-outline radius6" data-dismiss="modal"><i
+                            class="fa fa-close"></i> 关闭
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="modal-add-class" tabindex="-1" role="basic" aria-hidden="true">
+        <div class="modal-dialog" style="width: 400px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">添加首页分类</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:;" method="post">
+                        <table class="table table-striped table-bordered " width="100%">
+                            <tr>
+                                <th>图片</th>
+                                <td>
+                                    <div class="pull-left">
+                                        <input type="file" class="hidden">
+                                        <a href="javascript:" style="width: 100px;height: 100px;" class="btn-upload">
+                                            <span class="img-tip">选择图片</span>
+                                            <img name="logo" src="" width="100" height="100">
+                                        </a>
+                                        <input type="hidden" name="logo" value=""/>
+                                        <span class="required-star">* 建议尺寸：?*?px，大小不超过150k</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>分类</th>
+                                <td>
+                                    <select class=" input-medium form-control inline select-goods-type" name="typeId">
+                                        <option value="">请选择分类</option>
+                                    </select>
+                                    <input type="hidden" name="typeName" data-ref="typeId" value=""/>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn dark green btn-save radius6"><i class="fa fa-save"></i> 保存</button>
+                    <button type="button" class="btn dark btn-outline radius6" data-dismiss="modal"><i
+                            class="fa fa-close"></i> 关闭
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="modal-edit-class" tabindex="-1" role="basic" aria-hidden="true">
+        <div class="modal-dialog" style="width: 400px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">修改首页分类</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:;" method="post">
+                        <input type="hidden" name="id" value=""/>
+                        <table class="table table-striped table-bordered " width="100%">
+                            <tr>
+                                <th>图片</th>
+                                <td>
+                                    <div class="pull-left">
+                                        <input type="file" class="hidden">
+                                        <a href="javascript:" style="width: 100px;height: 100px;" class="btn-upload">
+                                            <span class="img-tip">选择图片</span>
+                                            <img name="logo" src="" width="100" height="100">
+                                        </a>
+                                        <input type="hidden" name="logo" value=""/>
+                                        <span class="required-star">* 建议尺寸：?*?px，大小不超过150k</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>分类</th>
+                                <td>
+                                    <select class=" input-medium form-control inline select-goods-type" name="typeId">
+                                        <option value="">请选择分类</option>
+                                    </select>
+                                    <input type="hidden" name="typeName" data-ref="typeId" value=""/>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn dark green btn-save radius6"><i class="fa fa-save"></i> 添加</button>
+                    <button type="button" class="btn dark btn-outline radius6" data-dismiss="modal"><i
+                            class="fa fa-close"></i> 关闭
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <!--modals-->
+</div>
+<div class="row">
+    <div class="top-handle-btn " id="search-form">
+        <a class="btn green radius6" data-toggle="modal" href="#modal-add"><i class="fa fa-plus"></i> 添加轮播图</a>
+        <button class="btn purple right search radius6" style="display: none" data-index="1" last-page="1"><i
+                class="fa fa-search"></i> 查询
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <!--main-content-->
+    <table id="data-table" class="table table-striped table-bordered table-hover" width="100%">
+
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>图片</th>
+            <th>链接类型</th>
+            <th>数据编号</th>
+            <th>名称</th>
+        </tr>
+
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+</div>
+
+<div class="row">
+    <a class="btn green radius6" data-toggle="modal" href="#modal-add-class"><i class="fa fa-plus"></i> 添加分类图</a>
+</div>
+<div class="row type-box" style="margin-top: 20px;">
+
+</div>
+
+<div class="row theme-info">
+    <form action="javascript:;">
+        <input type="hidden" name="id" value=""/>
+        <table class="table " width="100%">
+            <tr>
+                <th>
+                    <label class="control-label" style="">导航背景颜色</label>
+                    <input type="color" class=" input-small form-control inline" name="homeBgColor"/>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <label class="control-label" style="">导航背景颜色</label>
+                    <input type="color" class=" input-small form-control inline" name="navigationBgColor"/>
+                </th>
+            </tr>
+        </table>
+        <a type="button" class="btn green right  radius6 color-save"><i class="fa fa-save"></i> 保存主题</a>
+    </form>
+</div>
+
+<div class="row" id="patition">
+    <form action="javascript:;" id="patition-form-0">
+        <table class="table " width="100%">
+            <tr class="partition-main">
+                <td>版块名称</td>
+                <td>
+                    <input type="hidden" name="id" value=""/>
+                    <input type="tel" class=" input-medium form-control inline " name="partitionName" maxlength="16"
+                           value="">
+                </td>
+            </tr>
+            <tr class="partition-main">
+                <td>主图</td>
+                <td>
+                    <div class="pull-left">
+                        <input type="file" class="hidden">
+                        <a href="javascript:" style="width: 100px;height: 100px;" class="btn-upload">
+                            <span class="img-tip">选择图片</span>
+                            <img name="img" src="" width="100" height="100">
+                        </a>
+                        <input type="hidden" name="img" value=""/>
+                        <span class="required-star">* 建议尺寸：?*?px，大小不超过150k</span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="partition-main">
+                <td>主图链接类型</td>
+                <td>
+                    <select class=" input-medium form-control inline urlType" name="partitionType">
+                        <option value="">请选择链接类型</option>
+                        <option value="20009">商品</option>
+                        <option value="20010">类型</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="partition-main">
+                <td>商品</td>
+                <td>
+                    <input class=" input-medium form-control inline " name="goodsNo"
+                           placeholder="商品编号"/>
+                </td>
+            </tr>
+            <tr class="partition-main">
+                <td>类型</td>
+                <td>
+                    <select class=" input-medium form-control inline select-goods-type " name="typeId">
+                        <option value="">--请选择类型--</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="add-children-tr0">
+                <td>
+                    <button type="button" class="btn dark green radius6 add-children" onclick="addChildren(this)"><i
+                            class="fa fa-plus"></i> 添加子节点
+                    </button>
+                    <button type="button" class="btn dark green radius6 add-children" onclick="saveNode(this)"><i
+                            class="fa fa-save"></i> 保存
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <button type="button" class="btn dark green radius6 add-parents" onclick="addParents()"><i
+            class="fa fa-plus"></i> 添加新板块
+    </button>
+</div>
+
+
+<!--table-data-loader-->
+<script type="text/javascript">
+
+    var index = 1;
+
+    var formIndex = 1;
+    var childId = '<td id="child-id-INDEX" style="display: none"><input type="hidden" name="id" value="DATA-ID" /></td>';
+    var pic = '<td>图片</td>\n' +
+        '                <td id="child-p-INDEX">\n' +
+        '                    <div class="pull-left">\n' +
+        '                        <input type="file" class="hidden">\n' +
+        '                        <a href="javascript:" style="width: 100px;height: 100px;" class="btn-upload">\n' +
+        '                            <span class="img-tip">选择图片</span>\n' +
+        '                            <img name="img" src="DATA-IMG" width="100" height="100">\n' +
+        '                        </a>\n' +
+        '                        <input type="hidden" name="img" value="DATA-IMG"/>\n' +
+        '                        <span class="required-star">* 建议尺寸：?*?px，大小不超过150k</span>\n' +
+        '                    </div>\n' +
+        '                </td>';
+    var hrefType = '<td>链接类型</td>\n' +
+        '                <td  id="child-href-INDEX">\n' +
+        '                    <select class=" input-medium form-control inline urlType" name="partitionType">\n' +
+        '                        <option value="">请选择链接类型</option>\n' +
+        '                        <option value="20009">商品</option>\n' +
+        '                        <option value="20010">类型</option>\n' +
+        '                    </select>\n' +
+        '                </td>';
+    var typeSelect = '<td class="child-t-INDEX">类型</td>\n' +
+        '                <td  class="child-t-INDEX" >\n' +
+        '                    <select class=" input-medium form-control inline select-goods-type " name="typeId">\n' +
+        '                        <option value="">--请选择类型--</option>GOODS-TYPE-OPTIONS\n' +
+        '                    </select>\n' +
+        '                </td>';
+    var goodsNoSelect = '<td  class="child-g-INDEX" >商品</td>\n' +
+        '                <td  class="child-g-INDEX" >\n' +
+        '                    <input class=" input-medium form-control inline " value="DATA-GOODS" name="goodsNo"\n' +
+        '                           placeholder="商品编号"/>\n' +
+        '                </td>';
+
+
+    var parentForm = '<form action="javascript:;" class="custom-add-partition-form" id="patition-form-INDEX">\n' +
+        '        <table class="table " width="100%">\n' +
+        '            <tr class="partition-main">\n' +
+        '                <td>版块名称</td>\n' +
+        '                <td>\n' +
+        '                    <input type="hidden" name="id" value=""/>' +
+        '                   <input type="tel" class=" input-medium form-control inline " name="partitionName" maxlength="16"\n' +
+        '                           value="">\n' +
+        '                </td>\n' +
+        '            </tr>\n' +
+        '            <tr class="partition-main">\n' +
+        '                <td>主图</td>\n' +
+        '                <td>\n' +
+        '                    <div class="pull-left">\n' +
+        '                        <input type="file" class="hidden">\n' +
+        '                        <a href="javascript:" style="width: 100px;height: 100px;" class="btn-upload">\n' +
+        '                            <span class="img-tip">选择图片</span>\n' +
+        '                            <img name="img" src="" width="100" height="100">\n' +
+        '                        </a>\n' +
+        '                        <input type="hidden" name="img" value=""/>\n' +
+        '                        <span class="required-star">* 建议尺寸：?*?px，大小不超过150k</span>\n' +
+        '                    </div>\n' +
+        '                </td>\n' +
+        '            </tr>\n' +
+        '            <tr class="partition-main">\n' +
+        '                <td>主图链接类型</td>\n' +
+        '                <td>\n' +
+        '                    <select class=" input-medium form-control inline urlType" name="partitionType">\n' +
+        '                        <option value="">请选择链接类型</option>\n' +
+        '                        <option value="20009">商品</option>\n' +
+        '                        <option value="20010">类型</option>\n' +
+        '                    </select>\n' +
+        '                </td>\n' +
+        '            </tr>\n' +
+        '            <tr class="partition-main">\n' +
+        '                <td>商品</td>\n' +
+        '                <td>\n' +
+        '                    <input class=" input-medium form-control inline " value="" name="goodsNo"\n' +
+        '                           placeholder="商品编号"/>\n' +
+        '                </td>\n' +
+        '            </tr>\n' +
+        '            <tr class="partition-main">\n' +
+        '                <td>类型</td>\n' +
+        '                <td>\n' +
+        '                    <select class=" input-medium form-control inline select-goods-type" name="typeId">\n' +
+        '                        <option value="">--请选择类型--</option>GOODS-TYPE-OPTIONS\n' +
+        '                    </select>\n' +
+        '                </td>\n' +
+        '            </tr>\n' +
+        '            <tr class="add-children-trINDEX">\n' +
+        '                <td>\n' +
+        '                    <button type="button" class="btn dark green radius6 add-children" onclick="addChildren(this)"><i\n' +
+        '                            class="fa fa-plus"></i> 添加子节点\n' +
+        '                    </button> ' +
+        '                   <button type="button" class="btn dark green radius6 add-children" onclick="saveNode(this)"><i class="fa fa-save"></i> 保存</button>' +
+        '                   <button onclick="delParent(this)" class="btn red right radius6 type-box-del"><i class="fa fa-remove"></i> 删除版块</button>' +
+        '                </td>\n' +
+        '            </tr>\n' +
+        '        </table>\n' +
+        '    </form>';
+
+    function saveNode(obj) {
+        var parentInput = $(obj).parents("form").find("tr[class=partition-main]").find("input[name], select[name]");
+        var ParentObj = {};
+        $.each(parentInput, function (k, v) {
+            ParentObj[v.name] = v.value;
+        });
+        var childrenImg = $(obj).parents("form").find(".child").find("input[name=img]");
+        var childrenId = $(obj).parents("form").find(".child").find("input[name=id]");
+        var childrenPartitionType = $(obj).parents("form").find(".child").find("select[name=partitionType]");
+        var childrenGoodsNo = $(obj).parents("form").find(".child").find("input[name=goodsNo]");
+        var childrenTypeId = $(obj).parents("form").find(".child").find("select[name=typeId]");
+        var children = [];
+
+        for (var i = 0; i < childrenImg.length; ++i) {
+            var child = {};
+            child[childrenId[i].name] = childrenId[i].value;
+            child[childrenImg[i].name] = childrenImg[i].value;
+            child[childrenPartitionType[i].name] = childrenPartitionType[i].value;
+            child[childrenGoodsNo[i].name] = childrenGoodsNo[i].value;
+            child[childrenTypeId[i].name] = childrenTypeId[i].value;
+            children.push(child);
+        }
+        ParentObj["homePartitions"] = children;
+        Shinez.xhr("post", "/home/partition", JSON.stringify(ParentObj), true, function (ret) {
+            if (ret.status == 0) {
+                Shinez.tip("success", "保存成功");
+                loadPartition();
+            } else {
+                Shinez.tip("error", ret.info);
+            }
+        }, "json", "application/json;charset=UTF-8");
+    }
+
+    function loadPartition() {
+        $("#patition-form-0").find("input").val("");
+        $("#patition-form-0").find("img").attr("src", "");
+        $(".custom-add-partition-form").remove();
+        $(".child").remove();
+        Shinez.get("/home/partition", function (ret) {
+            if (ret.status == 0) {
+                var list = ret.data.partitionList;
+                $.each(list, function (k, v) {
+                    if (k == 0) {
+                        if (v.partitionType == 20009) {
+                            $("#patition-form-0").find("*[name=goodsNo]").val(v.dataId);
+                        } else {
+                            $("#patition-form-0").find("*[name=typeId]").val(v.dataId);
+                        }
+                        $("#patition-form-0").find("img[name=img]").attr("src", v.img);
+                        $.each(v, function (k1, v1) {
+                            $("#patition-form-0").find("*[name=" + k1 + "]").val(v1);
+                        })
+                        if (v.homePartitions.length != 0) {
+
+                            addChildren($("#patition-form-0").find(".add-children"), v.homePartitions.length == 0 ? null : v.homePartitions);
+                        }
+                    } else {
+                        var childrenAddBtn = addParents(v);
+                        if (v.homePartitions.length != 0) {
+                            addChildren(childrenAddBtn, v.homePartitions.length == 0 ? null : v.homePartitions);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
+    //添加子节点
+    function addChildren(obj, data) {
+        var beforeClassName = $(obj).parents("tr").attr("class");
+        var $tr1 = $("<tr class='child child-p1 child" + index + "'></tr>");
+        var $tr2 = $("<tr class='child child-p2 child" + index + "'></tr>");
+        var $tr3 = $("<tr class='child child-p3 child" + index + "'></tr>");
+        var $tr4 = $("<tr class='child child-p4 child" + index + "'></tr>");
+        var currentIndex = index;
+        for (var i = 0; i < 3; ++i) {
+            $tr1.append(childId.replace("INDEX", index).replace("DATA-ID", (data == null || data[i] == null) ? "" : data[i].id)).append(pic.replace("INDEX", index).replace(/DATA-IMG/g, (data == null || data[i] == null) ? "" : data[i].img));
+
+            var $hrefType = $(hrefType.replace("INDEX", index));
+            $hrefType.find("select").val((data == null || data[i] == null) ? "" : data[i].partitionType);
+            $tr2.append($hrefType);
+
+            var typeSelectId = "";
+            var goodsNo = "";
+            if (data != null && data[i] != null && data[i].partitionType == 20010) {
+                typeSelectId = data[i].dataId;
+            } else if (data != null && data[i] != null && data[i].partitionType == 20009) {
+                goodsNo = data[i].dataId;
+            }
+
+            var $typeSelect = $(typeSelect.replace(/INDEX/g, index));
+            $typeSelect.find("select").val(typeSelectId);
+            $tr3.append($typeSelect);
+            if (i == 2) {
+                $tr3.append('<td><button onclick="delPatitionTr(' + currentIndex + ')" class="btn btn-sm red right radius6 type-box-del"><i class="fa fa-remove"></i> 删除</button></td>');
+            }
+
+            $tr4.append(goodsNoSelect.replace(/INDEX/g, index).replace("DATA-GOODS", goodsNo));
+            ++index;
+        }
+        $tr1.insertBefore("." + beforeClassName);
+        $tr2.insertBefore("." + beforeClassName);
+        $tr3.insertBefore("." + beforeClassName);
+        $tr4.insertBefore("." + beforeClassName);
+
+        if(data!=null){
+            data.shift();
+            data.shift();
+            data.shift();
+        }
+        if (data != null && data.length > 0){
+            addChildren(obj, data);
+        }
+            registerImageUploadComponent()
+    }
+
+    //删除子节点
+    function delPatitionTr(idx) {
+        bootbox.confirm("确定要删除这一行设置？", function (result) {
+            if (result) {
+//                $(".child" + idx).remove();
+                var ids = $(".child" + idx).find("input[name=id]");
+                var idArray = [];
+                $.each(ids, function (k, v) {
+                    idArray.push(parseInt(v.value));
+                });
+                Shinez.del("/home/partition", {ids: JSON.stringify(idArray)}, function (result) {
+                    if (result.status == 0) {
+                        $(".child" + idx).remove();
+                    }
+                })
+
+            }
+        });
+
+    }
+
+    //删除父节点
+    function delParent(obj) {
+        bootbox.confirm("确定要删除这一组设置？", function (result) {
+            if (result) {
+                var id = $(obj).parents("form").find(".partition-main").find("[name=id]").val();
+                if (id != null && id != "" && id != "undefined" && id != "null") {
+                    Shinez.del("/home/partition/" + id, function (ret) {
+                        if (ret.status == 0) {
+                            $(obj).parents("form").remove();
+                        }
+                    });
+                } else {
+                    $(obj).parents("form").remove();
+                }
+
+            }
+        });
+    }
+
+    //添加父节点
+    function addParents(data) {
+        var $parentForm = $(parentForm.replace(/INDEX/g, formIndex));
+        if (data != null) {
+            $.each(data, function (k, v) {
+                $parentForm.find("*[name=" + k + "]").val(v);
+                if (k == "img") {
+                    $parentForm.find("img[name=" + k + "]").attr("src", v);
+                }
+            });
+            if (data.partitionType == 20009) {
+                $parentForm.find("input[name=goodsNo]").val(data.dataId);
+            } else if (data.partitionType == 20010) {
+                $parentForm.find("select[name=typeId]").val(data.dataId);
+            }
+        }
+
+        $parentForm.insertBefore(".add-parents");
+        ++formIndex;
+        registerImageUploadComponent();
+        return $parentForm.find(".add-children");
+    }
+
+
+    //链接类型选择显示
+    function verify(modalName) {
+        var type = $("#" + modalName).find(".urlType").val();
+        if (type == 20009) {
+            //显示商品下拉框
+            $("#" + modalName).find(".type").css('display', 'none');
+            $("#" + modalName).find(".goods").css('display', '');
+            $("#" + modalName).find(".type").find(".select-goods-type").removeAttr("name");
+            $("#" + modalName).find(".goods").find(".input-goods-no").attr("name", "dataId");
+        } else if (type == 20010) {
+            //显示类型下拉框
+            $("#" + modalName).find(".goods").css('display', 'none');
+            $("#" + modalName).find(".type").css('display', '');
+            $("#" + modalName).find(".type").find(".select-goods-type").attr("name", "dataId");
+            $("#" + modalName).find(".goods").find(".input-goods-no").removeAttr("name");
+        } else {
+            $("#" + modalName).find(".goods").css('display', 'none');
+            $("#" + modalName).find(".type").css('display', 'none');
+        }
+    }
+
+    var bannerUrl = "/home/banner";
+
+    var typeBoxPatition = ' <div class="type-box-single" >\n' +
+        '        <input type="hidden" name="id" value="DATA-ID" />' +
+        '<input type="hidden" name="typeId" value="DATA-TYPE-ID" />' +
+        '<input type="hidden" name="logo" value="DATA-IMG" />' +
+        '<input type="hidden" name="typeName" value="DATA-TYPE-NAME" />' +
+        '<div style="float:left;margin-left:100px">\n' +
+        '            <img src=\'DATA-IMG\'\n' +
+        '                 style="width:100px;height: 100px;"/>\n' +
+        '            <p>分类：<span>DATA-TYPE-NAME</span></p>\n' +
+        '            <button class="btn btn-sm purple right radius6 type-box-edit"><i class="fa fa-edit"></i> 编辑</button>\n' +
+        '            <button class="btn btn-sm red right radius6 type-box-del"><i class="fa fa-remove"></i> 删除</button>\n' +
+        '        </div>\n' +
+        '    </div>';
+    $(function () {
+        DataTable.init({
+            url: bannerUrl,//ajax请求url
+            tableName: "data-table",//数据表table id
+            paramsFormName: "search-form",//查询参数form id
+            modal: "modals",//模态框div
+            columns: [//列对应的字段数组，注意顺序
+                {data: "orderNo"},
+                {data: "img", type: 'img', view: "modal-img-view"},
+                {data: "hrefType", replaceFn: "replaceDataDict"},
+                {data: "dataId"},
+                {data: "dataName"},
+            ],
+            options: [//操作区域(id)
+                {
+                    icon: "fa fa-edit",
+                    name: "编辑",
+                    option: "modal-edit",
+                    editMain: true,
+                    edit: true,
+                    url: bannerUrl + "/{id}"
+                },
+                {
+                    icon: "fa fa-remove",
+                    name: "删除",
+                    del: bannerUrl,
+                },
+            ],
+            endFnOnce: "loadTypes",
+        });
+        registerImageUploadComponent();
+        $("#modal-add").find(".btn-save").on("click", function () {
+            Shinez.post("/home/banner", $("#modal-add").find("form").serialize(), function (ret) {
+                if (ret.status === 0) {
+                    Shinez.tip("success", "添加成功");
+                    $("#modal-add").modal('hide');
+                    $("#search-form").find(".search").trigger('click');
+                }
+                if (ret.status === -1) {
+                    Shinez.tip("error", ret.info);
+                }
+            });
+        });
+
+
+        loadTypeSet();
+        loadTheme();
+        loadPartition();
+        //添加分类
+        $("#modal-add-class").find(".btn-save").on("click", function () {
+
+            Shinez.post("/home/type", $("#modal-add-class").find("form").serialize(), function (ret) {
+                if (ret.status === 0) {
+                    var homeTypeSet = ret.data.homeTypeSet;
+                    buildType(homeTypeSet);
+                    $("#modal-add-class").modal('hide');
+                } else {
+                    Shinez.tip("error", ret.info);
+                }
+            });
+        });
+
+
+        //修改分类
+        $("#modal-edit-class").find(".btn-save").on("click", function () {
+            var id = $("#modal-edit-class").find("input[name=id]").val();
+            Shinez.put("/home/type/" + id, $("#modal-edit-class").find("form").serialize(), function (ret) {
+                if (ret.status === 0) {
+                    loadTypeSet();
+                    $("#modal-edit-class").modal('hide');
+                } else {
+                    Shinez.tip("error", ret.info);
+                }
+            });
+        });
+
+        //主题保存
+        $(".color-save").on("click", function () {
+            var hbc = $(".theme-info").find("input[name=homeBgColor]").val();
+            var nbc = $(".theme-info").find("input[name=navigationBgColor]").val();
+            var id = $(".theme-info").find("[name=id]").val();
+            Shinez.put("/home/theme", {id: id, homeBgColor: hbc, navigationBgColor: nbc}, function (ret) {
+                if (ret.status == 0) {
+                    Shinez.tip("success", "保存成功");
+                    var id = ret.data.theme.id;
+                    $(".theme-info").find("[name=id]").val(id);
+                } else {
+                    Shinez.tip("error", "保存失败");
+                }
+            });
+        });
+
+
+    });
+
+    //加载主题设置
+    function loadTheme() {
+        Shinez.get("/home/theme", function (ret) {
+            if (ret.status == 0) {
+                var theme = ret.data.theme;
+                if (theme != null) {
+                    $(".theme-info").find("input[name=homeBgColor]").val(theme.homeBgColor);
+                    $(".theme-info").find("input[name=navigationBgColor]").val(theme.navigationBgColor);
+                    $(".theme-info").find("[name=id]").val(theme.id);
+                }
+            } else {
+                Shinez.tip("error", ret.info);
+            }
+        });
+    }
+
+    //加载分类设置
+    function loadTypeSet() {
+
+        $(".type-box").html("");
+        Shinez.get("/home/type", function (ret) {
+            if (ret.status === 0) {
+                var list = ret.data.types;
+                $.each(list, function (k, v) {
+                    buildType(v);
+                });
+            }
+        });
+    }
+
+    function buildType(homeTypeSet) {
+        var $t = $(typeBoxPatition
+            .replace(/DATA-TYPE-NAME/g, homeTypeSet.typeName)
+            .replace(/DATA-ID/g, homeTypeSet.id)
+            .replace(/DATA-TYPE-ID/g, homeTypeSet.typeId)
+            .replace(/DATA-IMG/g, homeTypeSet.logo)
+        );
+        $t.find(".type-box-edit").on("click", function () {
+            //编辑
+            var iptVal = $(this).parents(".type-box-single").find("input[type=hidden]");
+            $.each(iptVal, function (k, v) {
+                $("#modal-edit-class").find("*[name=" + $(v).attr("name") + "]").val($(v).val());
+                if ($(v).attr("name") === "logo") {
+                    $("#modal-edit-class").find("img").attr("src", $(v).val());
+                }
+            })
+            $("#modal-edit-class").modal('show');
+        });
+        $t.find(".type-box-del").on("click", function () {
+            //删除
+            var $this = $(this);
+            var id = $(this).parents(".type-box-single").find("[name=id]").val();
+            Shinez.del("/home/type/" + id, function (ret) {
+                if (ret.status === 0) {
+                    Shinez.tip("success", "删除成功");
+                    $this.parents(".type-box-single").remove();
+                }
+            });
+
+        });
+        $(".type-box").append($t);
+    }
+
+    //加载商品分类信息
+    function loadTypes(data) {
+        var types = data.types;
+        var $typesContainer = $("<div></div>");
+        var typeContent = buildOption(types, $typesContainer, "goodsTypes", "typeName");
+        $(".select-goods-type").append(typeContent.html());
+        typeSelect = typeSelect.replace("GOODS-TYPE-OPTIONS", typeContent.html());
+        parentForm = parentForm.replace("GOODS-TYPE-OPTIONS", typeContent.html());
+
+    }
+
+    function buildOption(arrayInfo, $groupObj, arrayName, value) {
+        for (var i = 0; i < arrayInfo.length; ++i) {
+            var childrenBrand = arrayInfo[i][arrayName];
+            if (childrenBrand != null && childrenBrand.length > 0) {
+                var $group = $("<optgroup label='" + arrayInfo[i][value] + "'></optgroup>");
+                $groupObj.append(buildOption(childrenBrand, $group, arrayName, value));
+            } else {
+                $groupObj.append("<option value='" + arrayInfo[i].id + "'>" + arrayInfo[i][value] + "</option>");
+            }
+        }
+        return $groupObj;
+    }
+
+
+</script>

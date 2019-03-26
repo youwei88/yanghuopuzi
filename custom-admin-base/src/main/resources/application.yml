@@ -1,0 +1,80 @@
+server:
+ port: 51001
+ context-path: /api
+
+########################################################
+###FREEMARKER (FreeMarkerAutoConfiguration)
+########################################################
+
+spring:
+ jackson:
+  default-property-inclusion: NON_NULL
+
+########################################################
+###datasource
+########################################################
+
+ datasource:
+  type: org.apache.commons.dbcp.BasicDataSource
+  url: jdbc:mysql://127.0.0.1:3306/yanghuopuzi?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+  username: root
+  password:
+  driverClassName: com.mysql.jdbc.Driver
+  initial-size: 10
+  max-active: 20
+  max-idle: 8
+  min-idle: 8
+  testOnBorrow: true
+  validation-query: SELECT 1 FROM DUAL
+  validation-query-timeout: 300
+
+
+
+
+
+########################################################
+## REDIS (RedisProperties)
+########################################################
+ redis:
+  database: 1
+  host: 127.0.0.1
+  password: M58W8L67629QOECM553ZK3S5NJK2F63U
+  port: 6379
+  pool:
+   max-idle: 8
+   min-idle: 0
+   max-active: 8
+   max-wait: -1
+
+
+ session:
+  store-type: redis
+
+ cache:
+  type: redis
+
+jwt:
+ secret: 123456
+ #7天有效期
+ expiration: 604800
+ header: Authorization
+
+
+
+---
+
+ spring:
+  profiles: local
+
+  datasource:
+    url: jdbc:mysql://192.168.110.203:3306/yanghuopuzi?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=true
+    username: root
+    password: entropyshinez
+
+  redis:
+   database: 1
+   host: 192.168.110.203
+   password: 123456
+   port: 6379
+
+

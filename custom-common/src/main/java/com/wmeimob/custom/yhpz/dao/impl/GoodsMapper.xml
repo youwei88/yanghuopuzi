@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wmeimob.custom.yhpz.dao.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.wmeimob.custom.yhpz.bean.Goods" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="branch_id" property="branchId" jdbcType="INTEGER" />
+    <result column="goods_no" property="goodsNo" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="brand_id" property="brandId" jdbcType="INTEGER" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="full_type_id" property="fullTypeId" jdbcType="VARCHAR" />
+    <result column="full_brand_id" property="fullBrandId" jdbcType="VARCHAR" />
+    <result column="goods_prop" property="goodsProp" jdbcType="INTEGER" />
+    <result column="goods_prop_name" property="goodsPropName" jdbcType="VARCHAR" />
+    <result column="tax_id" property="taxId" jdbcType="INTEGER" />
+    <result column="tax_name" property="taxName" jdbcType="VARCHAR" />
+    <result column="post_id" property="postId" jdbcType="INTEGER" />
+    <result column="post_name" property="postName" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="serial_no" property="serialNo" jdbcType="VARCHAR" />
+    <result column="spec" property="spec" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="sale_prop" property="saleProp" jdbcType="INTEGER" />
+    <result column="sheif_life" property="sheifLife" jdbcType="VARCHAR" />
+    <result column="made_in" property="madeIn" jdbcType="VARCHAR" />
+    <result column="orign" property="orign" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="DECIMAL" />
+    <result column="guide_price" property="guidePrice" jdbcType="DECIMAL" />
+    <result column="market_price" property="marketPrice" jdbcType="DECIMAL" />
+    <result column="cost_price" property="costPrice" jdbcType="DECIMAL" />
+    <result column="sale_price" property="salePrice" jdbcType="DECIMAL" />
+    <result column="sale_price_min" property="salePriceMin" jdbcType="DECIMAL" />
+    <result column="sale_price_max" property="salePriceMax" jdbcType="DECIMAL" />
+    <result column="order_no" property="orderNo" jdbcType="INTEGER" />
+    <result column="points" property="points" jdbcType="INTEGER" />
+    <result column="sale_count" property="saleCount" jdbcType="INTEGER" />
+    <result column="really_sale_count" property="reallySaleCount" jdbcType="INTEGER" />
+    <result column="free_shipping" property="freeShipping" jdbcType="BIT" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+    <result column="banners" property="banners" jdbcType="VARCHAR" />
+    <result column="is_enabled" property="isEnabled" jdbcType="TINYINT" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+    <result column="details" property="details" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

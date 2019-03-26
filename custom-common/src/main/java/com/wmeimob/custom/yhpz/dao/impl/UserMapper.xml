@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wmeimob.custom.yhpz.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.wmeimob.custom.yhpz.bean.User" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="pwd" property="pwd" jdbcType="VARCHAR" />
+    <result column="wechat_user_id" property="wechatUserId" jdbcType="INTEGER" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="headimgurl" property="headimgurl" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="integral" property="integral" jdbcType="INTEGER" />
+    <result column="total_integral" property="totalIntegral" jdbcType="INTEGER" />
+    <result column="pay_pwd" property="payPwd" jdbcType="VARCHAR" />
+    <result column="branch_id" property="branchId" jdbcType="INTEGER" />
+    <result column="lite_id" property="liteId" jdbcType="INTEGER" />
+    <result column="branch_name" property="branchName" jdbcType="VARCHAR" />
+    <result column="lite_name" property="liteName" jdbcType="VARCHAR" />
+    <result column="commission" property="commission" jdbcType="DECIMAL" />
+    <result column="total_commission" property="totalCommission" jdbcType="DECIMAL" />
+    <result column="used_commission" property="usedCommission" jdbcType="DECIMAL" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="v_user_count" property="vUserCount" jdbcType="INTEGER" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

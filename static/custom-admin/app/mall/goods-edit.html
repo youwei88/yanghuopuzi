@@ -1,0 +1,468 @@
+<div class="row">
+    <form id="goods-add-form" action="javascript:;" method="post">
+        <input type="hidden" value="" name="id"/>
+        <table id="data-table" class="table table-striped table-bordered table-hover" width="100%">
+            <tr>
+                <th>商品编号</th>
+                <td>
+                    <!--文本框-->
+                    <input type="text" class=" input-large form-control inline" name="goodsNo"
+                           placeholder="商品编号需与U8一致"/>
+                </td>
+            </tr>
+            <tr>
+                <th>商品分类</th>
+                <td>
+                    <select name="typeId" class=" input-medium form-control inline ">
+                        <option value="">--请选择商品分类--</option>
+                    </select>
+                    <input type="hidden" value="" name="typeName"/>
+                </td>
+            </tr>
+
+            <tr>
+                <th>商品属性</th>
+                <td>
+                    <label class="mt-radio"><input type="radio" name="goodsProp" value="20001"/><span></span>普通商品
+                    </label>
+                    <label class="mt-radio"> <input type="radio" name="goodsProp" value="20002"/><span></span>保税商品
+                    </label>
+                    <label class="mt-radio"> <input type="radio" name="goodsProp" value="20003"/>
+                        <span></span>直邮商品</label>
+                </td>
+            </tr>
+
+            <tr class="tax-form" style="display: none">
+                <th>保税仓</th>
+                <td>
+                    <select name="taxId" class=" input-medium form-control inline ">
+                        <option value="">--请选择保税仓--</option>
+                    </select>
+                    <input type="hidden" value="" name="taxName"/>
+                </td>
+            </tr>
+
+            <tr class="post-form"style="display: none">
+                <th>直邮地</th>
+                <td>
+                    <select name="postId" class=" input-medium form-control inline ">
+                        <option value="">--请选择直邮地--</option>
+                    </select>
+                    <input type="hidden" value="" name="postName"/>
+                </td>
+            </tr>
+
+            <tr>
+                <th>商品品牌</th>
+                <td>
+                    <select name="brandId" class=" input-medium form-control inline ">
+                        <option value="">--请选择商品品牌--</option>
+                    </select>
+                    <input type="hidden" value="" name="brandName"/>
+                </td>
+            </tr>
+
+            <tr>
+                <th>商品名称</th>
+                <td>
+                    <input type="text" class=" input-large form-control inline" name="goodsName" placeholder="商品名称"/>
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>条形码号</th>
+                <td>
+                    <input type="text" class=" input-large form-control inline" name="serialNo" placeholder="sn码"/>
+                </td>
+            </tr>
+
+            <tr>
+                <th>规格</th>
+                <td>
+                    <input type="text" class=" input-large form-control inline" name="spec" placeholder=""/>
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>单位</th>
+                <td>
+                    <input type="text" class=" input-large form-control inline" name="unit" placeholder=""/>
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>售卖属性</th>
+                <td>
+                    <label class="mt-radio"><input type="radio" name="saleProp" value=""/><span></span>无 </label>
+                    <label class="mt-radio"> <input type="radio" name="saleProp" value="20004"/><span></span>热卖
+                    </label>
+                    <label class="mt-radio"> <input type="radio" name="saleProp" value="20005"/>
+                        <span></span>促销</label>
+                    <label class="mt-radio"> <input type="radio" name="saleProp" value="20006"/>
+                        <span></span>爆款</label>
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>保质期</th>
+                <td>
+                    <input type="text" class=" input-large form-control inline" name="sheifLife" placeholder=""/>
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>产地</th>
+                <td>
+                    <input type="text" class=" input-large form-control inline" name="madeIn" placeholder=""/>
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>原产地</th>
+                <td>
+                    <input type="text" class=" input-large form-control inline" name="orign" placeholder=""/>
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>重量（Kg）</th>
+                <td>
+                    <input type="number" class=" input-large form-control inline" name="weight"
+                           placeholder="最大支持9999.999kg"/>
+                    <span class="required-star">* 此字段为运费计算基础</span>
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>指导价</th>
+                <td>
+                    <input type="number" class=" input-large form-control inline" name="guidePrice" min="0"
+                           max="999999.99" placeholder="单位：元"/>
+                    <span class="required-star">* 若加盟店未设置价格，则以此价格为准</span>
+                </td>
+            </tr>
+
+            <tr>
+                <th>价格范围</th>
+                <td>
+                    <input type="number" min="0" max="999999.99" class=" input-small form-control inline"
+                           name="salePriceMin" placeholder=""/> -
+                    <input type="number" min="0" max="999999.99" class=" input-small form-control inline"
+                           name="salePriceMax" placeholder=""/> 元
+                    <span class="required-star">* 加盟店设置价格不可超过该价格范围</span>
+
+                </td>
+            </tr>
+
+            <tr>
+                <th>市场价</th>
+                <td>
+                    <input type="number" class=" input-large form-control inline" min="0" max="999999.99"
+                           name="marketPrice" placeholder="单位：元"/>
+                    <span class="required-star">* 此价格仅为商品标签类型，无实际意义</span>
+                </td>
+            </tr>
+
+            <tr class="shipping-form">
+                <th>是否包邮</th>
+                <td>
+                    <label class="mt-radio"><input type="radio" name="freeShipping" value="true"/><span></span>是
+                    </label>
+                    <label class="mt-radio"> <input type="radio" name="freeShipping"
+                                                    value="false"/><span></span>否</label>
+                </td>
+            </tr>
+
+            <tr>
+                <th>商品LOGO</th>
+                <td>
+                    <div class="pull-left">
+                        <input type="file" class="hidden">
+                        <a href="javascript:;" style="width: 100px;height: 100px;" class="btn-upload">
+                            <span class="img-tip">选择图片</span>
+                            <img name="logo" src="" width="100" height="100">
+                        </a>
+                        <input type="hidden" name="logo" value=""/>
+                        <span class="required-star">* 建议尺寸：?*?px，大小不超过150k</span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th>商品轮播图</th>
+                <td>
+                    <div class="upload-multiple">
+                        <div class="pull-left">
+                            <button class="img-del" data-index="0">x</button>
+                            <input type="file" class="hidden">
+                            <a href="javascript:;" style="width: 100px;height: 100px;" class="btn-upload">
+                                <span class="img-tip">选择图片</span>
+                                <img name="banners" src="" width="100" height="100">
+                            </a>
+                            <input type="hidden" name="banners" value=""/>
+                        </div>
+                    </div>
+                    <p><span class="required-star">* 建议尺寸：?*?px，大小不超过150k</span></p>
+                </td>
+            </tr>
+
+            <tr>
+                <th>商品详情</th>
+                <td>
+                    <div style="width: 414px;">
+                        <div id="goods-details" style="height: 700px;">
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr class="enabled-form">
+                <th>上架状态</th>
+                <td>
+                    <label class="mt-radio"><input type="radio" name="isEnabled" value="true"/><span></span>上架 </label>
+                    <label class="mt-radio"> <input type="radio" name="isEnabled" value="false"/><span></span>下架</label>
+                </td>
+            </tr>
+        </table>
+        <button type="submit" class="btn dark green btn-save radius6"><i class="fa fa-check"></i> 保存</button>
+        <button type="button" class="btn dark  btn-outline radius6 back-btn"><i class="fa fa-close"></i> 关闭</button>
+    </form>
+</div>
+<script type="text/javascript" src="/js/wangEditor.min.js"></script>
+<script type="text/javascript">
+    document.getElementsByClassName("page-title")[0].getElementsByTagName("span")[0].innerHTML = "商品详情";
+    var token, domain;
+    var editor;
+    Shinez.get("/main/qiniu-token", function (ret) {
+        if (ret.status == 0) {
+            token = ret.data.uploadToken;
+            domain = ret.data.domain;
+
+            editor = new wangEditor('goods-details');
+            editor.config.customUpload = true;
+            editor.config.customUploadInit = function () {
+                QiniuInit.init(editor, token, domain);
+            };
+            // 取消粘贴过滤
+            editor.config.pasteFilter = false;
+            // 关闭js过滤
+            editor.config.jsFilter = false;
+
+
+            document.getElementById('goods-details').addEventListener('click', function () {
+                var html = editor.$txt.html();
+                var filterHtml = filterXSS(html); // 此处进行 xss 攻击过滤
+//            alert(filterHtml);
+            }, false);
+
+
+            // 进行下文提到的其他配置
+            // ……
+            // ……
+            // ……
+            editor.create();
+            editor.$txt.html("");
+        }
+    });
+
+
+    function buildOption(arrayInfo, $groupObj, arrayName, value) {
+        for (var i = 0; i < arrayInfo.length; ++i) {
+            var childrenBrand = arrayInfo[i][arrayName];
+            if (childrenBrand != null && childrenBrand.length > 0) {
+                var $group = $("<optgroup label='" + arrayInfo[i][value] + "'></optgroup>");
+                $groupObj.append(buildOption(childrenBrand, $group, arrayName, value));
+            } else {
+                $groupObj.append("<option value='" + arrayInfo[i].id + "'>" + arrayInfo[i][value] + "</option>");
+            }
+        }
+        return $groupObj;
+    }
+
+    function addGoods() {
+        // 获取编辑器区域完整html代码
+        var html = editor.$txt.html();
+        Shinez.post("/goods", $("#goods-add-form").serialize() + "&details=" + html, function (ret) {
+            if (ret.status == 0) {
+                Shinez.tip("success", "添加成功");
+                $(".btn-save").prop("disabled", true);
+                setTimeout(function () {
+                    $(".back-btn").trigger("click");
+                }, 1000);
+            }
+            if (ret.status == -1) {
+                Shinez.tip("error", ret.info);
+            }
+            console.log(ret.status + " " + ret.info);
+        })
+    }
+
+    function editGoods() {
+        // 获取编辑器区域完整html代码
+        debugger;
+        var html = editor.$txt.html().replace(/\n/g, "").trim();
+        var id = $("#goods-add-form").find("input[name=id]").val();
+        Shinez.put("/goods/" + id, $("#goods-add-form").serialize() + "&details=" + encodeURI(html), function (ret) {
+            if (ret.status == 0) {
+                Shinez.tip("success", "修改成功");
+                $(".btn-save").prop("disabled", true);
+                setTimeout(function () {
+                    $(".back-btn").trigger("click");
+                }, 1000);
+            }
+            if (ret.status == -1) {
+                Shinez.tip("error", ret.info);
+            }
+            console.log(ret.status + " " + ret.info);
+        })
+    }
+
+    $(function () {
+        document.querySelector(".btn-save").onclick = function () {
+            var id = $("#goods-add-form").find("input[name=id]").val();
+            if (id == "" || id == null) {
+                addGoods();
+            } else {
+                editGoods();
+            }
+        };
+        registerImageUploadComponent();//注册图片上传组件
+
+        document.querySelector(".back-btn").onclick = function () {
+            loadHtml("/mall/goods");
+        };
+        setTimeout(function () {
+            Shinez.get("/goods/baseInfo", function (ret) {
+                if (ret.status == 0) {
+                    var data = ret.data;
+                    var brands = data.goodsBrands;
+                    var types = data.goodsTypes;
+
+                    var taxes = data.taxes;
+
+                    $.each(taxes, function (k, v) {
+                        $("select[name=taxId]").append("<option value='" + v.id + "'>"+v.houseName+"</option>");
+                    });
+
+                    var posts = data.posts;
+
+                    $.each(posts, function (k, v) {
+                        $("select[name=postId]").append("<option value='" + v.id + "'>"+v.houseName+"</option>");
+                    });
+
+
+
+                    var $brandsContainer = $("<div></div>");
+                    var $typesContainer = $("<div></div>");
+                    var brandsContent = buildOption(brands, $brandsContainer, "goodsBrands", "brandName");
+
+                    $("select[name=brandId]").append(brandsContent.html());
+                    var typeContent = buildOption(types, $typesContainer, "goodsTypes", "typeName");
+                    $("select[name=typeId]").append(typeContent.html());
+                    $("select").select2().change();
+
+                    var id = sessionStorage.getItem("editGoodsId");
+                    sessionStorage.removeItem("editGoodsId");
+                    if (id != null) {
+                        //查询商品信息
+                        $("#goods-add-form").find("*[name=id]").val(id);
+                        Shinez.get("/goods/" + id, function (ret) {
+                            if (ret.status == 0) {
+                                var goods = ret.data.goods;
+                                $.each(goods, function (k, v) {
+                                    $("*[name=" + k + "][type!=radio][name!=banners]").val(v).change();
+                                    $("*[name=" + k + "][type=radio][value='" + v + "']").trigger("click");
+                                    if (k == "logo") {
+                                        $("img[name=logo]").attr("src", v);
+                                    }
+
+                                    if (k == "details") {
+                                        editor.$txt.html(v);
+                                    }
+
+                                    if (k == "banners") {
+                                        var imgs = v.split(",");
+                                        $.each(imgs, function (k, v) {
+                                            var $newObject = $($(".upload-multiple").find(".pull-left")[0]).clone(true);
+                                            $newObject.find("img").attr("src", v);
+                                            $newObject.find("input[type=hidden]").val(v);
+                                            var i = $newObject.find(".img-del").attr("data-index");
+                                            $newObject.find(".img-del").attr("data-index", parseInt(i) + 1);
+                                            $(".upload-multiple").append($newObject[0]);
+                                        });
+
+                                        if ($(".upload-multiple").find(".pull-left").length > 1) {
+                                            $.each($(".upload-multiple").find(".pull-left"), function (k, v) {
+                                                if ($(v).find("input[type=hidden]").val() == "" && $(".upload-multiple").find(".pull-left").length > 1) {
+                                                    $(v).remove();
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                    }
+
+                }
+            })
+        }, 1000);
+
+
+        /**
+         *  表单事件开始
+         */
+
+        //商品属性-是否包邮关联设置
+        $("input[name=goodsProp]").on("click", function (e) {
+            var v = e.target.value;
+            if (v == yhpz.GOODS_TYPE_NORMAL) {//普通商品
+                $(".shipping-form").css("display", "none");
+                $("input[name=isEnabled][value='0']").trigger("click");
+                $(".enabled-form").css("display", "none");
+
+                $(".post-form").css("display", "none");
+                $(".tax-form").css("display", "none");
+            } else {
+                $(".shipping-form").css("display", "");
+                $(".enabled-form").css("display", "");
+
+                if (v == yhpz.GOODS_TYPE_TAX) {//保税
+                    $(".tax-form").css("display", "");
+                    $(".post-form").css("display", "none");
+                }
+                if (v == yhpz.GOODS_TYPE_POST) {//直邮
+                    $(".tax-form").css("display", "none");
+                    $(".post-form").css("display", "");
+                }
+
+            }
+        });
+
+        //商品品牌&类型
+        $("select[name=brandId]").on("change", function () {
+            var v = $("select[name=brandId] option:selected").html();
+            $("input[name=brandName]").val(v);
+        });
+        $("select[name=typeId]").on("change", function () {
+            var v = $("select[name=typeId] option:selected").html();
+            $("input[name=typeName]").val(v);
+        });
+
+
+        /**
+         * 表单事件 结束
+         */
+
+
+    })
+</script>

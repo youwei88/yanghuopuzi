@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wmeimob.custom.yhpz.dao.ThemeMapper" >
+  <resultMap id="BaseResultMap" type="com.wmeimob.custom.yhpz.bean.Theme" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="lite_id" property="liteId" jdbcType="INTEGER" />
+    <result column="home_bg_color" property="homeBgColor" jdbcType="VARCHAR" />
+    <result column="navigation_bg_color" property="navigationBgColor" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

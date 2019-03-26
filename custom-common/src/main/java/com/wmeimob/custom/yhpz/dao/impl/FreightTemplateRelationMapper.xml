@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wmeimob.custom.yhpz.dao.FreightTemplateRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.wmeimob.custom.yhpz.bean.FreightTemplateRelation" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="freight_template_id" property="freightTemplateId" jdbcType="INTEGER" />
+    <result column="city_info_id" property="cityInfoId" jdbcType="INTEGER" />
+  </resultMap>
+</mapper>

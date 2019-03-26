@@ -1,0 +1,502 @@
+<link rel="stylesheet" href="/css/free.css"/>
+<style>
+    
+
+#cities input[type="checkbox"] {
+    position: relative;
+    width: 13px;
+    height: 13px;
+    background: #fff;
+    border: 1px solid #dcdcdc;
+
+    border-radius: 1px;
+    -webkit-appearance: none;
+    border-width: 0 \0;
+}
+#cities input[type="checkbox"]:checked::after {
+    content: url(./images/checked.png);
+    display: block;
+    position: absolute;
+    top: -6px;
+    left: -5px;
+}
+</style>
+<script src="/js/free.js" type="text/javascript"></script>
+<div id="modals">
+
+    <!-- 设置运费所属区域 -->
+    <div id="freeDialog" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="bootbox-close-button close" data-dismiss="modal"
+                            aria-hidden="true"></button>
+                    <h4 class="modal-title">选择可配送区域</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="bootbox-body">
+                        <div class="form-horizontal region_box clearfix" style="width:780px">
+                            <div class="pull-left ">
+                                <section class="panel panel-default select_org_lists">
+                                    <header class="panel-heading bg-light">
+                                        可选省、市、区---当前位置:[<span class="current_place"></span>]
+                                    </header>
+                                    <div class="panel-body">
+                                        <div class="pull-left">
+                                            <select size="10" id="provinceId"
+                                                    class="form-control province js_province_cxselect"
+                                                    style="height:245px;">
+
+                                            </select>
+                                        </div>
+
+                                        <div class="pull-left">
+                                            <ul id="cities" class="cities js_cities_cxselect">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="pull-right">
+                                <section class="panel panel-default select_org_lists"
+                                         style="width:240px;overflow:auto;">
+                                    <div class="panel-body js_select_html" style="height:302px">
+                                        <div class="root clearfix ">
+                                            <div class="node-item  pull-left" style="margin-bottom:10px;">
+                                                已选省、市、区
+                                            </div>
+                                        </div>
+                                        <div class="org-nodes">
+
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button data-bb-handler="success" type="button" id="saveDistrictId" data-dismiss="modal"
+                            class="btn btn-primary">确定
+                    </button>
+                    <button type="button" data-dismiss="modal" class="btn">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--modals-->
+</div>
+<div class="row">
+    <div class="top-handle-btn">
+        <!--search-form-->
+
+        <select name="houseType" class=" input-medium form-control inline ">
+            <option value="">--请选择类型--</option>
+            <option value="20007">保税仓</option>
+            <option value="20008">直邮地</option>
+        </select>
+
+        <select name="taxId" class=" input-medium form-control inline " style="display: none;">
+            <option value="">--请选择保税仓--</option>
+        </select>
+        <select name="postId" class=" input-medium form-control inline " style="display: none;">
+            <option value="">--请选择直邮地--</option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="row-fluid">
+
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-edit"></i>运费模板设置</div>
+                <div class="tools">
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+
+                <!-- BEGIN FORM-->
+
+                <form class="form-horizontal" id="tempForm" name="tempForm"
+                      onsubmit="return false;">
+                    <input type='hidden' id="tempLength" name='tempLength'>
+                    <input type='hidden' id="isUsed" name='isUsed'>
+                    <div class="control-group">
+                        <label class="control-label">模板名称：</label>
+                        <div class="controls">
+                            <input class="span3 m-wrap" type="text" id="tempName" name="tempName" style="width:10rem;"
+                                   value=""/>
+                            <span class="help-inline" id="expressNameError"></span>
+                        </div>
+                    </div>
+
+                    <!-- 运费计算方式-->
+                    <div class='control-group'>
+                        <label class="control-label">运费计算方式：</label>
+                        <div class="all-guige">
+                            <input type='radio' value='0' style="float:left;margin-left:1px;" checked='checked'
+                                   id='checkboxbear' name='checkboxbear'/>
+                            <span>买家承担运费</span>
+                        </div>
+                    </div>
+                    <!-- 配送方式-->
+                    <div class='control-group'>
+                        <label class="control-label">配送方式：</label>
+                        <div class="all-guige">
+                            <input type='radio' value='0' style="float:left;margin-left:1px;" checked='checked'
+                                   id='checkboxtype' name='checkboxtype'/>
+                            <span>快递</span>
+                        </div>
+                    </div>
+
+                    <!-- 计价方式-->
+                    <div class='control-group'>
+                        <label class="control-label">计价方式：</label>
+                        <div class="all-guige">
+                            <input type='radio' value='0' style="float:left;margin-left:1px;" checked='checked'
+                                   id='checkboxpriceType' name='checkboxpriceType'/>
+                            <span>按重量</span>
+                        </div>
+                    </div>
+
+                    <!--设置可配送区域和运费-->
+                    <div class='control-group'>
+                        <label class="control-label">设置可配送区域和运费：</label>
+                        <div class="controls" id="createTable">
+                            <table id="process" class="columnList">
+                                <thead>
+                                <tr>
+                                    <th width="500" colspan="5">设置可配送区域和运费</th>
+                                </tr>
+                                <tr>
+                                    <th width="500">配送区域</th>
+                                    <th width="100">首重(kg)</th>
+                                    <th width="200">运费(元)</th>
+                                    <th width="100">续重(kg)</th>
+                                    <th width="200">运费(元)</th>
+                                </tr>
+                                </thead>
+                                <tbody class="freeTbody">
+                                <tr style="display: none"></tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th colspan="5" onclick="registerFreeTREvent()" class="addFreeTR"><a
+                                            href="javascript:;"> <i class="fa fa-map-marker"> 设置可配送区域和运费</i></a></th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+                <div class="form-actions">
+                    <button type="button" id="save" class="btn blue">保存</button>
+                </div>
+                <!-- END FORM-->
+
+            </div>
+
+        </div>
+
+        <!-- END SAMPLE FORM PORTLET-->
+
+    </div>
+
+
+</div>
+
+
+<!-- END PAGE CONTENT-->
+
+
+<!--table-data-loader-->
+<script type="text/javascript">
+
+    var cityObj = JSON.parse(localStorage.cityInfo);
+    console.log(cityObj);
+
+    $(function () {
+
+        var appendStr = ""
+
+        for(var i = 0;  i < cityObj.length;i++) {
+            appendStr += "<option value='" + i + "'>" + cityObj[i].name + "</option>";
+        }
+
+        $("#provinceId").html(appendStr);
+
+
+//省份点击事件
+        $("#provinceId").change(function(){
+
+            var pid=$("#provinceId").val();
+            initCityList(pid);
+        })
+
+        //商品品牌&类型
+        $("select[name=houseType]").on("change", function (e) {
+            var typeId = e.target.value;
+            if (typeId == yhpz.HOUSE_TYPE_TAX) {
+                $("select[name=taxId]").css("display", "");
+                $("select[name=postId]").css("display", "none");
+            } else if (typeId == yhpz.HOUSE_TYPE_POST) {
+                $("select[name=taxId]").css("display", "none");
+                $("select[name=postId]").css("display", "");
+            } else {
+                $("select[name=postId]").css("display", "none");
+                $("select[name=taxId]").css("display", "none");
+            }
+        });
+
+        Shinez.get("/goods/baseInfo", function (ret) {
+            if (ret.status == 0) {
+                var data = ret.data;
+                var posts = data.posts;
+                var taxes = data.taxes;
+
+                $.each(taxes, function (k, v) {
+                    $("select[name=taxId]").append("<option value='" + v.id + "'>" + v.houseName + "</option>");
+                });
+                $.each(posts, function (k, v) {
+                    $("select[name=postId]").append("<option value='" + v.id + "'>" + v.houseName + "</option>");
+                });
+                
+                var id = sessionStorage.getItem("editFreightByHouseId");
+                sessionStorage.removeItem("editFreightByHouseId");
+                id = 1;
+                if (id != null) {
+                    //根据houseId查询
+                    Shinez.get("/freight", {houseId: id}, function (ret) {
+                        if (ret.status == 0) {
+                            console.log(ret);
+                        }
+                    })
+                }
+            }
+        })
+    })
+//初始化城市列表
+function initCityList(pid){
+    $('#cities').empty();
+
+    $('#cities').append('<li><label class="checkbox"><input class="checkAll" onclick="checkAll(this)" value="" type="checkbox"><span>全选</span></label></li>');
+
+    for(var x = 0;  x < cityObj[pid].children.length;x++) {
+        if ($('#address' + pid) && $('#address' + pid).find('.cityDiv').length === cityObj[pid].children.length) {
+            $('.checkAll').prop('checked', true);
+            $("#cities").append('<li> <label class="checkbox"><input id="checkItem'+ cityObj[pid].children[x].id +'" class="js_citys_checkitem" onclick="checkItem(' + cityObj[pid].children[x].id + ')" data-name="' + cityObj[pid].children[x].name + '" data-myid="' + cityObj[pid].children[x].id + '" checked="checked" type="checkbox"><span class="text-muted">'+cityObj[pid].children[x].name+'</span><a href="javascript:;" title="展示区域" class="m-l pull-right js_show_area" data-id="220400" data-name=""><i class="fa fa-angle-right text-muted"></i></a> </label> </li>');
+        } else if ($('#address' + pid) && $('#address' + pid).find('.cityDiv').length !== cityObj[pid].children.length)  {
+
+            if ($('#addressItem' + cityObj[pid].children[x].id).find('.cityName').html()) {
+                $("#cities").append('<li> <label class="checkbox"><input id="checkItem'+ cityObj[pid].children[x].id +'" class="js_citys_checkitem" onclick="checkItem(' + cityObj[pid].children[x].id + ')" data-name="' + cityObj[pid].children[x].name + '" data-myid="' + cityObj[pid].children[x].id + '" checked="checked" type="checkbox"><span class="text-muted">'+cityObj[pid].children[x].name+'</span><a href="javascript:;" title="展示区域" class="m-l pull-right js_show_area" data-id="220400" data-name=""><i class="fa fa-angle-right text-muted"></i></a> </label> </li>');
+            } else {
+
+                $("#cities").append('<li> <label class="checkbox"><input id="checkItem'+ cityObj[pid].children[x].id +'" class="js_citys_checkitem" onclick="checkItem(' + cityObj[pid].children[x].id + ')" data-name="' + cityObj[pid].children[x].name + '" data-myid="' + cityObj[pid].children[x].id + '" type="checkbox"><span class="text-muted">'+cityObj[pid].children[x].name+'</span><a href="javascript:;" title="展示区域" class="m-l pull-right js_show_area" data-id="220400" data-name=""><i class="fa fa-angle-right text-muted"></i></a> </label> </li>');
+            }
+        } else {
+            $("#cities").append('<li> <label class="checkbox"><input id="checkItem'+ cityObj[pid].children[x].id +'" class="js_citys_checkitem" onclick="checkItem(' + cityObj[pid].children[x].id + ')" data-name="' + cityObj[pid].children[x].name + '" data-myid="' + cityObj[pid].children[x].id + '" type="checkbox"><span class="text-muted">'+cityObj[pid].children[x].name+'</span><a href="javascript:;" title="展示区域" class="m-l pull-right js_show_area" data-id="220400" data-name=""><i class="fa fa-angle-right text-muted"></i></a> </label> </li>');
+        }
+    }
+}
+
+var index=0;
+//全选或者不全选
+function checkAll(that){
+     var length=$(".cities").find("li").length-1;
+     if($(that)[0].checked){
+        $('#cities .js_citys_checkitem').prop('checked', true);
+         index=length;
+     }else{
+        $('#cities .js_citys_checkitem').removeAttr("checked");
+         index=0;
+     }
+
+     checkAllMoveCity(index);
+     
+}
+
+//单个选择城市
+
+function checkItem(key){
+     var length=$(".cities").find("li").length-1;
+
+     if($(".checkAll").prop('checked')){
+         index = length;
+     }
+
+     if($("#checkItem" + key).prop("checked")){
+         $("#checkItem" + key).prop("checked", true);
+         index = index + 1;
+         if(length == index){
+             $(".checkAll").prop("checked", true);
+         }
+     }else{
+         $("#checkItem"+key).removeAttr("checked");
+         index = index - 1;
+         if(length != index){
+             $(".checkAll").removeAttr("checked");
+         }
+     }
+     //添加或者移除已选择或者已取消的城市信息
+     moveDistrict(key);
+}
+
+var newPname="<div class='allAddress'><div class='nodes-item node-last clearfix provinceDiv'>"+
+                "<a href='javascript:;'><img src='/yzfs-admin/static/image/icon/subIcon.png' class='iconclass imgItemClass'/></a>"+
+                "<div class='node-item  add-member pull-left'>"+
+                "<span class='pull-left m-name provinceName'>河北省</span>"+
+                "<input type='hidden' id='selectedPID' name='selectedPID'/>"+
+                "</div></div>";
+
+var newCname="<div class='nodes-items vline clearfix cityDiv'>"+
+                "<div class='nodes-items  clearfix'>"+
+                "<div class='node-items  add-member pull-left' style='padding-left:40px;'>"+
+                "<span class='pull-left m-name cityName' >石家庄市</span>"+
+                "<input type='hidden' id='selectedCID' name='selectedCID'/>"+
+                "</div></div></div>";
+
+
+//将选中的城市自拼接到已选地址中
+function moveDistrict(i){
+    console.log($("#provinceId").val());
+     var isExistpName=$("#address" + $("#provinceId").val() + ' .provinceName').html();//查看是否存在该省份名称
+
+     var Pid=$("#provinceId").val();
+     var pname=cityObj[Pid].name;//省份名称
+     var cid=$("#checkItem"+i).data('myid');
+
+     var cname=$("#checkItem"+i).data('name');
+
+     if($("#checkItem" + i)[0].checked){
+        // if(pname!=isExistpName){
+            if($(".allAddress").length==0){ 
+                $(".org-nodes").append(newPname);
+                $(".allAddress").eq(0).attr({"id":"address"+Pid});
+                $(".allAddress").eq(0).find(".provinceName").html(pname);
+                $(".allAddress").eq(0).find(".imgItemClass").attr({"id":"treeIconClass"+Pid});
+                $(".allAddress").eq(0).find(".imgItemClass").attr({"onclick":"checkTree('"+Pid+"')"});
+                $(".allAddress").eq(0).find(".provinceDiv :input[type=hidden]").val(Pid);
+                $(".allAddress").eq(0).find(".provinceDiv :input[type=hidden]").attr({"id":"selectedPID"+Pid});
+                $("#address"+Pid).last().eq(0).find(".provinceDiv").after(newCname);
+                $("#address"+Pid).find(".cityName").html(cname);
+                $("#address"+Pid).eq(0).find(".cityDiv").attr({"id":"addressItem"+i});
+                $("#address"+Pid).eq(0).find(".cityDiv :input[type=hidden]").val(i);
+                $("#address"+Pid).eq(0).find(".cityDiv :input[type=hidden]").attr({"id":"selectedCID"+i});
+            }else { 
+                var pidObj=$("#selectedPID"+Pid).val();
+                var cidObj=$("#selectedCID"+cid).val();
+                if(Pid==pidObj){
+                   if(cid!=cidObj){
+                      $("#address"+Pid).find(".cityDiv").last().after(newCname);
+                      $("#address"+Pid).find(".cityDiv").last().find(".cityName").html(cname);
+                      $("#address"+Pid).find(".cityDiv").last().attr({"id":"addressItem"+cid});
+                      $("#address"+Pid).find(".cityDiv").last().find("input[type=hidden]").val(cid);
+                      $("#address"+Pid).find(".cityDiv").last().find("input[type=hidden]").attr({"id":"selectedCID"+cid});
+                      $("#address"+Pid).find(".cityDiv").removeClass("hide");
+                      $("#treeIconClass"+Pid).attr({"src":"/yzfs-admin/static/image/icon/subIcon.png"});
+                   }
+                }else{
+                    $(".allAddress").last().after(newPname);
+                    $(".allAddress").last().eq(0).attr({"id":"address"+Pid});
+                    $(".allAddress").last().eq(0).find(".provinceName").html(pname);
+                    $(".allAddress").last().eq(0).find(".imgItemClass").attr({"id":"treeIconClass"+Pid});
+                    $(".allAddress").last().eq(0).find(".imgItemClass").attr({"onclick":"checkTree('"+Pid+"')"});
+                    $(".allAddress").last().eq(0).find(".provinceDiv :input[type=hidden]").val(Pid);
+                    $(".allAddress").last().eq(0).find(".provinceDiv :input[type=hidden]").attr({"id":"selectedPID"+Pid});
+                    $("#address"+Pid).last().eq(0).find(".provinceDiv").after(newCname);
+                    $("#address"+Pid).find(".cityName").last().html(cname);
+                    $("#address"+Pid).last().find(".cityDiv :input[type=hidden]").val(cid);
+                    $("#address"+Pid).last().find(".cityDiv :input[type=hidden]").attr({"id":"selectedCID"+cid});
+                    $("#address"+Pid).find(".cityDiv").last().attr({"id":"addressItem"+cid});
+                }
+            }
+        // }
+    }else{
+        $("#addressItem"+i).remove();
+        if($("#address"+Pid).find(".cityDiv").length==0){
+            $("#address"+Pid).remove();
+            $('.checkAll').removeAttr("checked");
+        }
+    }
+}
+
+//全选移动城市区域
+function checkAllMoveCity(index){
+     var length=$(".cities").find("li").length-1;
+     var Pid=$("#provinceId").val();
+     var pname=cityObj[Pid].name;//省份名称
+     var pidObj=$("#selectedPID"+Pid).val();
+
+     if(index>0){
+         console.log(2);
+         if(Pid!=pidObj){
+            if($(".allAddress").length==0){ 
+                 $(".org-nodes").append(newPname);
+                 $(".allAddress").eq(0).attr({"id":"address"+Pid});
+                 $(".allAddress").eq(0).find(".provinceName").html(pname);
+                 $(".allAddress").eq(0).find(".imgItemClass").attr({"id":"treeIconClass"+Pid});
+                 $(".allAddress").eq(0).find(".imgItemClass").attr({"onclick":"checkTree('"+Pid+"')"});
+                 $(".allAddress").eq(0).find(".provinceDiv :input[type=hidden]").val(Pid);
+                 $(".allAddress").eq(0).find(".provinceDiv :input[type=hidden]").attr({"id":"selectedPID"+Pid});
+            }else{ 
+                  $(".allAddress").last().after(newPname);
+                  $(".allAddress").last().eq(0).attr({"id":"address"+Pid});
+                  $(".allAddress").last().eq(0).find(".provinceName").html(pname);
+                  $(".allAddress").last().eq(0).find(".imgItemClass").attr({"id":"treeIconClass"+Pid});
+                  $(".allAddress").last().eq(0).find(".imgItemClass").attr({"onclick":"checkTree('"+Pid+"')"});
+                  $(".allAddress").last().eq(0).find(".provinceDiv :input[type=hidden]").val(Pid);
+                  $(".allAddress").last().eq(0).find(".provinceDiv :input[type=hidden]").attr({"id":"selectedPID"+Pid});
+            }
+         }
+         $("#address"+Pid).find(".cityDiv").remove();
+        for(var x in cityObj[Pid].children) {
+         // for(var i=0;i<length;i++){
+             // var cid=$("#checkImg"+i).data('myid');
+             // var cname=$("#checkImg"+i).data('name');
+            
+             if(x==0){
+                $("#address"+Pid).find(".provinceDiv").after(newCname);
+                $("#address"+Pid).eq(0).find(".cityName").html(cityObj[Pid].children[x].name);
+                $("#address"+Pid).eq(0).find(".cityDiv").attr({"id":"addressItem"+cityObj[Pid].children[x].id});
+                $("#address"+Pid).eq(0).find(".cityDiv :input[type=hidden]").val(cityObj[Pid].children[x].id);
+                // $("#address"+Pid).eq(0).find(".cityDiv :input[type=hidden]").attr({"id":"selectedCID"+cid});
+             }else{
+                $("#address"+Pid).find(".cityDiv").last().after(newCname);
+                $("#address"+Pid).find(".cityDiv").last().find(".cityName").html(cityObj[Pid].children[x].name);
+                $("#address"+Pid).find(".cityDiv").last().attr({"id":"addressItem"+cityObj[Pid].children[x].id});
+                $("#address"+Pid).find(".cityDiv").last().find("input[type=hidden]").val(cityObj[Pid].children[x].id);
+                $("#address"+Pid).last().find(".cityDiv :input[type=hidden]").attr({"id":"selectedCID" + cityObj[Pid].children[x].id});         
+                // $("#address"+Pid).find(".cityDiv").last().find("input[type=hidden]").attr({"id":"selectedCID"+cid});
+                $("#address"+Pid).find(".cityDiv").removeClass("hide");
+                $("#treeIconClass"+Pid).attr({"src":"/yzfs-admin/static/image/icon/subIcon.png"});
+             }
+         }
+     }else{
+         $("#address"+Pid).remove();
+     }
+
+    
+}
+
+
+//树形展开与关闭
+function checkTree(Pid){
+    if($("#treeIconClass"+Pid).attr("src")=="/yzfs-admin/static/image/icon/addIcon.png"){
+        console.log("#address"+Pid)
+        $("#treeIconClass"+Pid).attr({"src":"/yzfs-admin/static/image/icon/subIcon.png"});
+        $("#address"+Pid).find(".cityDiv").removeClass("hide");
+    }else{
+        $("#treeIconClass"+Pid).attr({"src":"/yzfs-admin/static/image/icon/addIcon.png"});
+        $("#address"+Pid).find(".cityDiv").addClass("hide");
+    }
+}
+
+//编辑运费模板列
+function editFree(rowid){ 
+    $("#saveDistrictId").attr({"onclick":"saveDistrict('"+rowid+"')"});
+    $("img[name=checkCityItemImg]").attr({"src":"/yzfs-admin/static/image/kong.png"});
+    $(".org-nodes").html("");
+}
+</script>

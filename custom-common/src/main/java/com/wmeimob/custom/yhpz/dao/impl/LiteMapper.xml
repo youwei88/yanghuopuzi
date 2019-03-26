@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wmeimob.custom.yhpz.dao.LiteMapper" >
+  <resultMap id="BaseResultMap" type="com.wmeimob.custom.yhpz.bean.Lite" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="lite_no" property="liteNo" jdbcType="VARCHAR" />
+    <result column="lite_name" property="liteName" jdbcType="VARCHAR" />
+    <result column="branch_id" property="branchId" jdbcType="INTEGER" />
+    <result column="user_count" property="userCount" jdbcType="INTEGER" />
+    <result column="free_post" property="freePost" jdbcType="DECIMAL" />
+    <result column="is_self" property="isSelf" jdbcType="BIT" />
+    <result column="self_delivery_support" property="selfDeliverySupport" jdbcType="BIT" />
+    <result column="allowed_self_shelves" property="allowedSelfShelves" jdbcType="BIT" />
+
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="INTEGER" />
+    <result column="area" property="area" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+
+    <result column="points_offset_rate" property="pointsOffsetRate" jdbcType="DECIMAL" />
+    <result column="points_get_rate" property="pointsGetRate" jdbcType="DECIMAL" />
+    <result column="points_rmb_rate" property="pointsRmbRate" jdbcType="DECIMAL" />
+
+    <result column="sys_user_id" property="sysUserId" jdbcType="INTEGER" />
+    <result column="sys_uname" property="sysUname" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+    <result column="is_enabled" property="isEnabled" jdbcType="BIT" />
+  </resultMap>
+</mapper>

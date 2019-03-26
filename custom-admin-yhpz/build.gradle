@@ -1,0 +1,5 @@
+
+description = ''
+dependencies {
+  compile project(':custom-admin-base')
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wmeimob.custom.yhpz.dao.GoodsTypeMapper">
+    <resultMap id="BaseResultMap" type="com.wmeimob.custom.yhpz.bean.GoodsType">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="branch_id" property="branchId" jdbcType="INTEGER"/>
+        <result column="type_name" property="typeName" jdbcType="VARCHAR"/>
+        <result column="img" property="img" jdbcType="VARCHAR"/>
+        <result column="parent_id" property="parentId" jdbcType="INTEGER"/>
+        <result column="order_no" property="orderNo" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap type="com.wmeimob.custom.yhpz.bean.GoodsType" id="TreeMap" extends="BaseResultMap">
+        <collection property="goodsTypes" column="id"  ofType="com.wmeimob.custom.yhpz.bean.GoodsType"
+                    select="selectChildren"/>
+    </resultMap>
+
+    <update id="updateList">
+        <foreach collection="list" item="map" index="index" open=" " separator=";" close=" ">
+            UPDATE goods_type SET parent_id = #{map.parentId} ,order_no = #{map.orderNo} WHERE id=#{map.id}
+        </foreach>
+    </update>
+</mapper>

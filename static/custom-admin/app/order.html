@@ -1,0 +1,304 @@
+<div id="modals">
+    <div class="modal fade" id="modal-edit" tabindex="-1" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="max-height:700px;overflow-y: auto;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">订单详情</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id"/>
+                    <table class="table table-striped table-bordered " width="100%">
+                        <tr>
+                            <th colspan="2">订单状态</th>
+                            <td colspan="2">
+                                <select name="orderStatus">
+                                    <option value="1">未付款</option>
+                                    <option value="2">未提货</option>
+                                    <option value="3">已完成</option>
+                                    <option value="4">已撤销</option>
+                                    <option value="5">待退款</option>
+                                    <option value="6">已退款</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>订单编号</th>
+                            <td>
+                                <input type="text" name="orderNo"/>
+                            </td>
+                            <th>支付流水号</th>
+                            <td>
+                                <input type="text" name="transactionId"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>下单人</th>
+                            <td><input type="text" name="userFullName"/></td>
+                            <th>下单时间</th>
+                            <td><input type="text" name="createTime"/></td>
+                        </tr>
+                        <tr>
+                            <th>手机号码</th>
+                            <td><input type="text" name="userTel"/></td>
+                            <th>证件号</th>
+                            <td><input type="text" name="userNo"/></td>
+                        </tr>
+                        <tr>
+                            <th>所在学校</th>
+                            <td><input type="text" name="userSchool"/></td>
+                            <th>所在校区</th>
+                            <td><input type="text" name="userSchoolDist"/></td>
+                        </tr>
+                        <tr>
+                            <th>提货地点</th>
+                            <td><input type="text" name="eventPickUpAddress"/></td>
+                            <th>核销人</th>
+                            <td><input type="text" name="validUserFullName"/></td>
+                        </tr>
+                    </table>
+                    <table class="table table-striped table-bordered  order-detail-tb">
+                        <thead>
+                        <tr style="background-color:#eeeeee">
+                            <th style="width: 120px">商品分类</th>
+                            <th style="width: 150px">商品名称</th>
+                            <th style="width: 100px">数量</th>
+                            <th style="width: 50px">销售价(元)</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th style="width: 100px;">订单金额</th>
+                            <th style="width: 50px;"><input type="text" style="width:50px;color: red"
+                                                            name="discountFee"/>元
+                            </th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="pick-up" class="btn yellow radius6"><i class="fa fa-gift"></i> 提货</button>
+                    <button type="button" class="btn dark btn-outline radius6" data-dismiss="modal"><i
+                            class="fa fa-close"></i> 关闭
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="row">
+    <div class="top-handle-btn">
+        <form id="search-form" action="javascript:;">
+            每页显示：<input name="pageSize" class="form-control  input-small inline" type="number" min="2" max="50"
+                        style="width: 70px !important;" value="10"/>
+
+            <div style="display: inline-block;position: relative;top: 11px;">
+                <div class="input-group date  form_datetime " style="float: left">
+                    <span style="margin:8px">下单时间</span>
+                    <input type="text" size="16" name="startTime" readonly
+                           class="form-control input-small inline"/>
+                    <span class="input-group-btn">
+                                        <button class="btn default date-set" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                        </span>
+                </div>
+                <div class="input-group date  form_datetime " style="float: left">
+                    <input type="text" size="16" name="endTime" readonly
+                           class="form-control input-small inline"/>
+                    <span class="input-group-btn">
+                                        <button class="btn default date-set" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                        </span>
+                </div>
+            </div>
+
+            <select name="userSchoolId" class=" input-medium form-control inline select2-multiple">
+                <option value="">选择学校</option>
+            </select>
+
+
+
+            <!--订单状态 1未付款 2未提货 3已完成 4已撤销 5待退款 6已退款',-->
+            <select name="orderStatus" class=" input-small form-control inline ">
+                <option value="">订单状态</option>
+                <option value="1">未付款</option>
+                <option value="2">未提货</option>
+                <option value="3">已完成</option>
+                <option value="4">已撤销</option>
+                <option value="5">待退款</option>
+                <option value="6">已退款</option>
+            </select>
+            
+
+            <input type="text" class=" input-small form-control inline" name="userFullName"
+                   placeholder="姓名"/>
+            <input type="text" class=" input-small form-control inline " name="userTel"
+                   placeholder="手机号"/>
+            <input type="text"  class=" input-small form-control inline " name="orderNo" placeholder="订单号"/>
+            <button class="btn purple right search radius6"><i class="fa fa-search"></i> 查询</button>
+            <button type="button" class='btn blue output-btn radius6'  onclick="javascript:;"><i
+                    class="fa fa-download"></i> 导出详情
+            </button>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <table id="data-table" class="table table-striped table-bordered table-hover" width="100%">
+        <thead>
+        <tr>
+            <th>订单号</th>
+            <th>下单时间</th>
+            <th>下单人</th>
+            <th>下单人所在学校</th>
+            <th>订单金额(元)</th>
+            <th>订单状态</th>
+            <th>提货点</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+</div>
+
+<script type="text/javascript">
+    var state = history.state;
+    var url = state.html + "/" + state.en;
+    $(function () {
+        $(".form_datetime").datepicker({
+            format: "yyyy-mm-dd",
+            language: 'zh-CN',
+            autoclose: 1,
+            todayBtn:1
+        });
+
+        $("select[name=userSchoolId]").select2();
+
+        var date = new Date();
+        date = Shinez.FormateDate(date, "yyyy-MM-dd");
+        $("input[name=startTime]").val(date);
+        $("input[name=endTime]").val(date);
+        $('.form_datetime').datepicker('update');
+
+        $(".output-btn")[0].onclick = function () {
+            var start = $("#search-form [name=startTime]").val();
+            var end = $("#search-form [name=endTime]").val();
+            var status = $("#search-form [name=orderStatus]").val();
+            start = start.replace(/-/g, "/");
+            end = end.replace(/-/g, "/");
+            var startDate = new Date(start);
+            var endDate = new Date(end);
+            if (start == "" || end == "" || startDate.getTime() > endDate.getTime()) {
+                bootbox.alert("请选择正确的时间段");
+                return;
+            }
+            if (status == "") {
+                bootbox.alert("请选择要导出的订单状态");
+                return;
+            }
+            var quertStr = $("#search-form ").serialize();
+            output(this, '/order/' + state.en + '/output?' + quertStr);
+        };
+
+
+        $("#pick-up")[0].onclick = function () {
+            bootbox.confirm("确定该订单已提货？", function (result) {
+                if (result) {
+                    var id = $("#modal-edit").find("[name=id]").val();
+                    bootbox.prompt("请输入核销码或提货码", function (r) {
+                        if (r == null)
+                            return;
+                        if (r.length < 6 || r.length > 32) {
+                             showTip("danger","输入有误");
+                        } else {
+                            Shinez.put(url + "/updateToPick", {id: id, code: r}, function (ret) {
+                                if (ret.status == 0) {
+                                    showTip("success","提货成功");
+                                    $("tr[data-id=" + id + "]").find("td[data-name=orderStatus]").attr("data-value", 3).html("已完成");
+                                    $("#modal-edit").modal("hide");
+                                }else{
+                                     showTip("danger",ret.info);
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        };
+
+        DataTable.init({
+            url: url,//ajax请求url
+            tableName: "data-table",//数据表table id
+            paramsFormName: "search-form",//查询参数form id
+            modal: "modals",//模态框div
+            columns: [//列对应的字段数组，注意顺序
+                {data: "orderNo"},
+                {data: "createTime", type: "datetime"},
+                {data: "userFullName"},
+                {data: "userSchool"},
+                {data: "discountFee"},
+                {data: "orderStatus", convert: "1=>未付款|2=>未提货|3=>已完成|4=>已撤销|5=>待退款|6=>已退款"},//1未付款 2未提货 3已完成 4已撤销 5待退款 6已退款',
+                {data: "eventPickUpAddress"},
+                {data: "pickupTime", type: "datetime", visible: false},
+                {data: "userTel", visible: false},
+                {data: "transactionId", visible: false},
+                {data: "userNo", visible: false},
+                {data: "eventType", visible: false, convert: "1=>线下义卖|2=>线上义卖"},
+                {data: "validUserFullName", visible: false},
+                {data: "userSchoolDist", visible: false}
+            ],
+            options: [//操作区域(id)
+                {
+                    icon: "fa fa-file-text",
+                    name: "详情",
+                    color: "green",
+                    option: "modal-edit",
+                    edit: true,
+                    editMain: true,
+                    pre: "loadDetail",
+//                    visible:false
+                },
+            ],
+            endFnOnce: "loadSchool",
+        });
+    });
+
+    function loadSchool(data) {
+        var specs = data.schoolyardList;
+        $.each(specs, function (k, v) {
+            $("select[name=userSchoolId]").append("<option value='" + v.id + "'>" + v.school + "</option>");
+        });
+    }
+
+    function loadDetail() {
+        $("#modal-edit [name]").attr("disabled", "disabled").attr("readonly", "readonly").css("border", "none");
+        var id = $("#modal-edit [name=id]").val();
+        var orderStatus = $("#modal-edit [name=orderStatus]").val();
+        if (orderStatus != 2)
+            $("#pick-up").css("display", "none");
+        else
+            $("#pick-up").css("display", "");
+        Shinez.get(url + "/details", {orderId: id}, function (ret) {
+            if (ret.status == 0) {
+                var details = ret.data.details;
+                $(".order-detail-tb tbody").html("");
+                $.each(details, function (k, v) {
+                    $(".order-detail-tb tbody").append("<tr><td>" + v.goodsType + "</td><td>" + v.goodsName + "</td><td>" + v.goodsCount + "</td><td>" + v.salePrize + "</td></tr>");
+                });
+            } else {
+                showTip("danger", ret.info);
+            }
+        });
+    }
+
+
+</script>

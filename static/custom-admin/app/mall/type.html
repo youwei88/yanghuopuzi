@@ -1,0 +1,327 @@
+<div id="modals">
+    <!--modals-->
+    <div class="modal fade" id="modal-add" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">添加</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:;" method="post">
+                        <input type="hidden" name="parentId" value=""/>
+                        <table class="table table-striped table-bordered " width="100%">
+                            <tr>
+                                <th>类型名称</th>
+                                <td><input class="form-control " type="text" name="typeName" value=""></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <div class="pull-left">
+                                        <input type="file" class="hidden">
+                                        <a href="javascript:;" style="width: 100px;height: 100px;" class="btn-upload">
+                                            <span  class="img-tip">选择图片</span>
+                                            <img name="img" src="" width="100" height="100">
+                                        </a>
+                                        <input type="hidden" name="img" value=""/>
+                                        <p><span class="required-star">* 建议尺寸：100*100px，大小不超过150k</span></p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn dark green btn-save radius6"><i class="fa fa-check"></i> 保存
+                    </button>
+                    <button type="button" class="btn dark  btn-outline radius6" data-dismiss="modal"><i
+                            class="fa fa-close"></i> 关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-edit" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">修改</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:;" method="post">
+                        <input type="hidden" name="id" value=""/>
+                        <table class="table table-striped table-bordered " width="100%">
+                            <tr>
+                                <th>类型名称</th>
+                                <td><input class="form-control " type="text" name="typeName" value=""></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>
+                                    <div class="pull-left">
+                                        <input type="file" class="hidden">
+                                        <a href="javascript:;" style="width: 100px;height: 100px;" class="btn-upload">
+                                            <span  class="img-tip">选择图片</span>
+                                            <img name="img" src="" width="100" height="100">
+                                        </a>
+                                        <input type="hidden" name="img" value=""/>
+                                        <p><span class="required-star">* 建议尺寸：100*100px，大小不超过150k</span></p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn dark green btn-save radius6"><i class="fa fa-check"></i> 保存
+                    </button>
+                    <button type="button" class="btn dark  btn-outline radius6" data-dismiss="modal"><i
+                            class="fa fa-close"></i> 关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="top-handle-btn">
+        <!--search-form-->
+        <div class="note note-success">
+            <p> 商品类型最多支持 <span style="color: red">3 </span>级，超出部分前端将不予展现 </p>
+        </div>
+        <a type="button" href="#modal-add" data-toggle="modal" class="btn dark purple btn-save radius6"><i class="fa fa-plus"></i> 添加根类型</a>
+    </div>
+</div>
+<div class="row" style="width: 75%">
+
+    <!--main-content-->
+    <div class="portlet-body">
+
+        <div class="dd" id="nestable_list_1">
+
+        </div>
+
+    </div>
+
+</div>
+
+<input type="hidden" id="brand-data" value="" style="width: 1000px;"/>
+<div style="padding: 10px;">
+    <button type="button" class="btn dark green btn-save radius6" onclick="updateNode()"><i class="fa fa-check"></i> 保存
+    </button>
+    <button type="button" class="btn dark  btn-outline radius6" onclick="loadData()"><i class="fa fa-close"></i> 展开全部
+    </button>
+</div>
+<script type="text/javascript">
+    var UINestable = function () {
+        var updateOutput = function (e) {
+            var list = e.length ? e : $(e.target),
+                output = list.data('output');
+            if (window.JSON) {
+                output.val(window.JSON.stringify(list.nestable('serialize'))); //, null, 2));
+            } else {
+                output.val('JSON browser support required for this demo.');
+            }
+        };
+
+        return {
+            //main function to initiate the module
+            init: function () {
+
+                // activate Nestable for list 1
+                $('#nestable_list_1').nestable({
+                    group: 1
+                })
+                    .on('change', updateOutput);
+
+                // output initial serialised data
+                updateOutput($('#nestable_list_1').data('output', $('#brand-data')));
+
+                $('#nestable_list_menu').on('click', function (e) {
+                    var target = $(e.target),
+                        action = target.data('action');
+                    if (action === 'expand-all') {
+                        $('.dd').nestable('expandAll');
+                    }
+                    if (action === 'collapse-all') {
+                        $('.dd').nestable('collapseAll');
+                    }
+                });
+
+            }
+
+        };
+
+    }();
+
+</script>
+
+<!--table-data-loader-->
+<script type="text/javascript">
+
+    //修改
+    function preEditNode(obj) {
+        var name = $(obj).parent("span").siblings("*[data-name=item-name]").html();
+        var img = $(obj).parent("span").siblings("*[data-name=item-img]").find("img").attr("src");
+        var id = $(obj).attr("data-id");
+        console.log(name + " " + img);
+        $("#modal-edit").modal('show');
+        $("#modal-edit").find("input[name=typeName]").val(name);
+        $("#modal-edit").find("input[name=img]").val(img);
+        $("#modal-edit").find("img[name=img]").attr("src", img);
+        $("#modal-edit").find("input[name=id]").val(id);
+    }
+
+    /**
+     * 修改
+     */
+    function editNode() {
+        console.log($("#modal-edit").find("form").serialize());
+        var id = $("#modal-edit").find("input[name=id]").val();
+        Shinez.put("/goods-type/" + id, $("#modal-edit").find("form").serialize(), function (ret) {
+            if (ret.status == 0) {
+                $("#modal-edit").modal('hide');
+                loadData();
+            }
+            if (ret.status == -1) {
+                Shinez.tip("error", ret.info);
+            }
+        });
+    }
+
+
+    function prePlusNode(obj) {
+        var id = $(obj).attr("data-id");
+        $("#modal-add").find("input[name=parentId]").val(id);
+        $("#modal-add").modal('show');
+    }
+
+    /**
+     * 新增节点
+     */
+    function plusNode() {
+        console.log($("#modal-add").find("form").serialize());
+        Shinez.post("/goods-type", $("#modal-add").find("form").serialize(), function (ret) {
+            if (ret.status == 0) {
+                $("#modal-add").modal('hide');
+                Shinez.tip("success","添加成功");
+                loadData();
+            }
+            if (ret.status == -1) {
+                Shinez.tip("error", ret.info);
+            }
+        });
+    }
+
+    /**
+     * 删除节点
+     * @param obj
+     */
+    function delNode(obj) {
+        var id = $(obj).attr("data-id");
+        bootbox.confirm("是否要删除该节点？", function (result) {
+            if (result) {
+                Shinez.del("/goods-type/" + id, function (ret) {
+                    if (ret.status == 0) {
+                        Shinez.tip("success","删除成功");
+                        loadData();
+                    }
+                    if (ret.status == -1) {
+                        Shinez.tip("error", ret.info);
+                    }
+                });
+            }
+        });
+    }
+
+    function updateNode() {
+        var updateNodeJson = $("#brand-data").val();
+        Shinez.xhr("post", "/goods-type/list", updateNodeJson, true, function (ret) {
+            if (ret.status == 0) {
+                Shinez.tip("success","更新成功");
+                loadData();
+            }
+            if (ret.status == -1) {
+                Shinez.tip("error", ret.info);
+            }
+        }, "json", "application/json;charset=utf-8");
+    }
+
+    var editBtn = '<a href="javascript:void(0)"  onclick="preEditNode(this);" data-id="{DATA-ID}" data-toggle="modal"><i class="fa fa-pencil icon-muted fa-fw m-r-xs icon-18"></i></a>';
+    var plusBtn = '<a href="javascript:void(0)" onclick="prePlusNode(this);" data-id="{DATA-ID}" data-toggle="modal"><i class="fa fa-plus icon-muted fa-fw m-r-xs icon-18"></i></a>';
+    var delBtn = ' <a href="javascript:void(0)" data-id="{DATA-ID}" onclick="delNode(this)" ><i class="fa fa-trash-o icon-muted fa-fw"></i></a>';
+    var handleSpan = '<span class="pull-right"></span>';
+    var items = '<li class="dd-item  dd-nodrag" data-id="{DATA-ID}"><div class="dd-handle"><span data-name="item-img"><img style="width: 22px;" src="{DATA-IMG}"/></span><span data-name="item-name">{DATA-NAME}</span></div></li>';
+    var rootItem = '<ol class="dd-list"></ol>';
+    var zNodes = [];
+    function treeMenu(a) {
+        this.tree = a || [];
+        this.groups = {};
+    }
+    treeMenu.prototype = {
+        init: function (pid) {
+            this.group();
+            return this.getDom(this.groups[pid]);
+        },
+        group: function () {
+            for (var i = 0; i < this.tree.length; i++) {
+                if (this.groups[this.tree[i].pId]) {
+                    this.groups[this.tree[i].pId].push(this.tree[i]);
+                } else {
+                    this.groups[this.tree[i].pId] = [];
+                    this.groups[this.tree[i].pId].push(this.tree[i]);
+                }
+            }
+        },
+        getDom: function (data) {
+            if (!data) {
+                return ''
+            }
+            var $html = $(rootItem);
+            for (var i = 0; i < data.length; i++) {
+                var $child = $(items.replace("{DATA-ID}", data[i].id).replace("{DATA-NAME}", data[i].name).replace("{DATA-IMG}", data[i].img));
+                var $handleSpan = $(handleSpan);
+                $handleSpan.append(editBtn.replace("{DATA-ID}", data[i].id));
+                $handleSpan.append(plusBtn.replace("{DATA-ID}", data[i].id));
+                $handleSpan.append(delBtn.replace("{DATA-ID}", data[i].id));
+                $child.find("div").append($handleSpan);
+                $child.append(this.getDom(this.groups[data[i].id]));
+                $html.append($child);
+            }
+            return $html[0];
+        }
+    };
+
+    $(function () {
+        loadData();
+
+        $("#modal-edit").find("button[type=submit]").click(function () {
+            editNode();
+        });
+
+        $("#modal-add").find("button[type=submit]").click(function () {
+            plusNode();
+        });
+
+        registerImageUploadComponent();
+    });
+
+    function loadData() {
+        Shinez.get("/goods-type", function (ret) {
+            if (ret.status == 0) {
+                var list = ret.data.arrayList;
+                console.table(list);
+                zNodes = [];
+                $.each(list, function (k, v) {
+                    zNodes.push({id: v.id, pId: v.parentId, name: v.typeName, img: v.img});
+                });
+                var html = new treeMenu(zNodes).init(0);
+                $("#nestable_list_1").html(html);
+                UINestable.init();
+            }
+        });
+    }
+
+</script>

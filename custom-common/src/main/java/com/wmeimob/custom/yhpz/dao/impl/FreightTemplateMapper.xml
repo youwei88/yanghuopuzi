@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wmeimob.custom.yhpz.dao.FreightTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.wmeimob.custom.yhpz.bean.FreightTemplate" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="freight_no" property="freightNo" jdbcType="VARCHAR" />
+    <result column="house_type" property="houseType" jdbcType="INTEGER" />
+    <result column="house_id" property="houseId" jdbcType="INTEGER" />
+    <result column="house_name" property="houseName" jdbcType="VARCHAR" />
+    <result column="lite_id" property="liteId" jdbcType="INTEGER" />
+    <result column="branch_id" property="branchId" jdbcType="INTEGER" />
+    <result column="first_weight" property="firstWeight" jdbcType="DECIMAL" />
+    <result column="first_fee" property="firstFee" jdbcType="DECIMAL" />
+    <result column="renew_weight" property="renewWeight" jdbcType="DECIMAL" />
+    <result column="renew_fee" property="renewFee" jdbcType="DECIMAL" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+    <result column="address_json" property="addressJson" jdbcType="LONGVARCHAR" />
+    <result column="address_desc" property="addressDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

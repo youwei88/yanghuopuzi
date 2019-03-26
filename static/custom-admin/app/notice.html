@@ -1,0 +1,111 @@
+<div id="modals">
+    <div class="modal fade" id="modal-view" tabindex="-1" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">使用微信扫一扫预览</h4>
+                </div>
+                <div class="modal-body" style="text-align: center;margin: auto" id="qrcode">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn dark btn-outline radius6" data-dismiss="modal"><i  class="fa fa-close"></i> 关闭 </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+<div class="row">
+    <div class="top-handle-btn">
+        <button  class="btn dark green btn-save radius6 publish"><i class="fa fa-save"></i> 发布</button>
+        <a class='btn blue preview radius6' data-toggle="modal" href="#modal-view"><i class="fa fa-eye"></i> 预览</a>
+        <p>
+        <div class="note note-success">
+            使用第三方图文排版编辑应用，将内容粘贴在下方后点击预览在手机端查看
+        </div>
+        </p>
+    </div>
+</div>
+
+<div style="width: 414px;">
+    <input type="hidden" name="id" value="">
+    <div id="editor-trigger" style="height: 500px;"><p>请输入内容...</p></div>
+</div>
+<!--<script data-main="/app/notice/notice" src="/js/require.js"></script>-->
+<script type="text/javascript" src="/js/wangEditor.min.js"></script>
+<script type="text/javascript">
+    var state = history.state.html;
+    //    require.config({
+    //        paths: {
+    //            jquery: '/assets/global/plugins/jquery.min',
+    //            wangEditor: '/js/wangEditor.min'
+    //        }
+    //    });
+
+    var editor;
+    //    require(['wangEditor'], function () {
+    // 生成编辑器
+    $(function () {
+        editor = new wangEditor('editor-trigger');
+        editor.config.customUpload = true;  // 设置自定义上传的开关
+        editor.config.customUploadInit = function () {
+            QiniuInit.init(editor,"/main/getQiniuToken2", getUploadDomain());
+        };
+        // 取消粘贴过滤
+        editor.config.pasteFilter = false;
+        // 关闭js过滤
+        editor.config.jsFilter = false;
+        editor.create();
+        loadData();
+        $(".publish").on("click", function () {
+            var html = editor.$txt.html();
+            Shinez.post(state + "/publish", {content: html}, function (ret) {
+                if(ret.status==0) {
+                    showTip("success", "发布成功");
+                }else{
+                    showTip("danger",ret.info);
+                }
+            });
+        });
+
+        $(".preview").on("click", function () {
+            var html = editor.$txt.html();
+            // 获取编辑区域的所有图片
+            var imgs = editor.$txt.find('img');
+            console.table(imgs);
+
+            Shinez.post(state + "/savePreview", {content: html}, function (ret) {
+                if(ret.status==0) {
+                    var link = ret.data.link;
+                    var id = ret.data.id;
+                    $("*[name=id]").val(id);
+                    $("#qrcode").html("");
+
+                    var qrcode = new QRCode("qrcode", {
+                        text: link,
+// width: .200,
+// height: 200,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+                    $("#modal-view").find("img").css("margin", "auto");
+                }else{
+                    showTip("danger",ret.info);
+                }
+            });
+        });
+    });
+
+    //    });
+    var state = location.hash.substring(1, location.hash.length);
+    function loadData() {
+        Shinez.get(state, function (ret) {
+            editor.$txt.html('');
+            editor.$txt.append(ret.content);
+            $("*[name=id]").val(ret.id);
+        });
+    }
+</script>

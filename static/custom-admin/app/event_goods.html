@@ -1,0 +1,321 @@
+<div id="modals">
+    <div class="modal fade" id="modal-add-goods" tabindex="-1" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">导入商品（Ctrl+F快速查找）</h4>
+                </div>
+                <div class="modal-body" style="height: 600px;overflow-y: auto;">
+                    <form action="javascript:;" method="post">
+                        <table id="goods-store-tb" class="table table-striped table-bordered " width="100%">
+                            <tr>
+                                <th><label>
+                                    <input type="checkbox"/>
+                                </label></th>
+                                <th>商品编号</th>
+                                <th>商品分类</th>
+                                <th>商品名称</th>
+                                <th>销售价(元)</th>
+                            </tr>
+                        </table>
+                        <input type="hidden" name="isEnable" value="0"/>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn dark green btn-save radius6"><i class="fa fa-share-square-o"></i> 导入</button>
+                    <button type="button" class="btn dark btn-outline radius6" data-dismiss="modal"><i  class="fa fa-close"></i> 关闭 </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="modal-edit" tabindex="-1" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">编辑</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:;" method="post">
+                        <input type="hidden" name="id"/>
+                        <table class="table table-striped table-bordered " width="100%">
+                            <tr>
+                                <th>商品名称</th>
+                                <td>
+                                    <input type="text" class="form-control" name="goodsName" readonly disabled/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>商品属性</th>
+                                <td>
+                                    <label class="mt-radio"><input type="radio" name="goodsPropState" value="0"/><span></span>普通</label>
+                                    <label class="mt-radio"> <input type="radio" name="goodsPropState" value="1"/><span></span> 换购</label>
+                                    <input type="hidden" name="goodsProp" data-ref="goodsPropState" value=""/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>实际销售价(元)</th>
+                                <td>
+                                    <input type="number" class="form-control input-medium"name="salePrice" min="0.01"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>换购条件</th>
+                                <td>
+                                    <input type="number" class="form-control input-medium"name="fullPrice" min="0.01"/>
+                                    <p><span class="required-star">* 每满一定金额可换购该商品，普通商品留空</span></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>库存</th>
+                                <td>
+                                    <input type="number"   value="0" class="form-control input-medium"name="goodsCountPlus"/>
+                                    <p><span class="required-star">* 初始库存为0，输入要调整的<b>库存增量</b>，如要减少请输入负数</span></p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>每单限购</th>
+                                <td>
+                                    <input type="number" class="form-control input-medium" min="0" name="limitCount"/>
+                                    <p><span class="required-star">* 数值为0表示不受限</span></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn dark green btn-save radius6"><i class="fa fa-check"></i> 保存  </button>
+                    <button type="button" class="btn dark btn-outline radius6" data-dismiss="modal"><i  class="fa fa-close"></i> 关闭 </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+
+<div class="row">
+    <table class="table " id="event-tb" >
+        <tr>
+            <td>
+                <i class="icon-social-dribbble"></i>
+                <span>活动类型</span>
+            </td>
+            <td data-name="eventType"></td>
+        </tr>
+        <tr>
+            <td>
+                <i class="fa fa-graduation-cap"></i>
+                <span>所属学校</span>
+            </td>
+            <td data-name="school"></td>
+        </tr>
+        <tr>
+            <td>
+                <i class="fa fa-clock-o"></i>
+                <span>开始时间</span>
+            </td>
+            <td data-name="startTime"></td>
+        </tr>
+        <tr>
+            <td>
+                <i class="fa fa-clock-o"></i>
+                <span>结束时间</span>
+            </td>
+            <td data-name="endTime"></td>
+        </tr>
+        <tr>
+            <td>
+                <i class="fa fa-lightbulb-o"></i>
+                <span>活动状态</span>
+            </td>
+            <td data-name="isEnable"></td>
+        </tr>
+    </table>
+</div>
+<div class="row">
+    <div class="top-handle-btn">
+        <form id="search-form" action="javascript:;">
+            每页显示：<input name="pageSize" class="form-control  input-small inline" type="number" min="2" max="50" style="width: 80px;"
+                        value="10"/>
+            <input type="text" name="goodsName" class="form-control input-medium inline" list="goodsList" placeholder="输入商品名称"/>
+            <datalist id="goodsList">
+
+            </datalist>
+            <a class='btn green radius6' data-toggle='modal' href='#modal-add-goods'><i class="fa fa-share-square-o"></i>  从商品库导入</a>
+            <button  class="btn purple right search radius6"><i class="fa fa-search"></i> 搜索</button>
+            <button type="button " class="btn grey radius6" onclick="history.go(-1)"><i class="fa fa-hand-o-left"></i> 返回</button>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <table id="data-table" class="table table-striped table-bordered table-hover" width="100%">
+        <thead>
+        <tr>
+            <th>商品类型</th>
+            <th>商品名称</th>
+            <th>商品属性</th>
+            <th>默认销售价(元)</th>
+            <th>实际销售价(元)</th>
+            <th>满购条件(元/件)</th>
+            <th>库存</th>
+            <th>每单限购</th>
+            <th>上架状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+</div>
+
+<script type="text/javascript">
+    var state = history.state;
+    //    if(state==null||state.length==0){
+    //        bootbox.alert("请从活动管理入口进入此页");
+    //    }
+    var root = "/event/" + state.en + "/" + state.enid + "/goods";
+    console.log(root);
+    document.getElementsByClassName("page-title")[0].getElementsByTagName("i")[0].setAttribute("class", map[state.html + "?en=" + state.en].fnIcon);
+    document.getElementsByClassName("page-title")[0].getElementsByTagName("span")[0].innerHTML = map[state.html + "?en=" + state.en].fnName;
+    $(function () {
+        DataTable.init({
+            url: root,//ajax请求url
+            tableName: "data-table",//数据表table id
+            paramsFormName: "search-form",//查询参数form id
+            modal: "modals",//模态框div
+            columns: [//列对应的字段数组，注意顺序
+                {data: "goodsType"},
+                {data: "goodsName",},
+                {data: "goodsProp", convert: "0=>普通|1=>换购"},
+                {data: "goodsPrice",},
+                {data: "salePrice",},
+                {data: "fullPrice",},
+                {data: "goodsCount"},
+                {data: "limitCount"},
+                {
+                    data: "isShow",
+                    convert: "1=> <input type='checkbox' class='ck-sw' data-size='small' checked >" +
+                    "|0=><input class='ck-sw'   type='checkbox' data-size='small'>"
+                },
+            ],
+            options: [//操作区域(id)
+                {
+                    icon:"fa fa-edit",
+                    name: "编辑",
+                    color: "green",
+                    option: "modal-edit",
+                    url: root,
+                    edit: true,
+                    editMain: true,
+                    pre:"setGoodsCountPlusToZero",
+//                    visible: false,
+                },
+                {
+                    icon:"fa fa-remove",
+                    name: "删除",
+                    color: "red",
+                    del: root,
+                }
+            ],
+            endFnOnce: "loadData",
+            endFn:"registerSwitchClick"
+        });
+
+
+        $("#modal-add-goods .btn-save")[0].onclick = function () {
+            var selectObjs = $("#goods-store-tb").find(".goods-select-cb:checked");
+            if (selectObjs.length == 0)return;
+            var idArray = new Array;
+            for (var i = 0; i < selectObjs.length; ++i) {
+                idArray.push(selectObjs[i].value);
+            }
+            Shinez.post(root, {goodsIds: idArray}, function (ret) {
+                if(ret.status==0) {
+                    $("#modal-add-goods").modal('hide');
+                    showTip("success", "导入成功");
+                    setTimeout(function () {
+                        $(".search").trigger("click");
+                    }, 500);
+                }else{
+                    showTip("danger",ret.info);
+                }
+            });
+        }
+    });
+
+    function registerSwitchClick() {
+        $('.ck-sw').on('switchChange.bootstrapSwitch', function (e, state) {
+            var $this = $(this);
+            $this.bootstrapSwitch('state', !state, true);
+            setShow($this, state);
+        });
+    }
+    function loadData(data) {
+        loadEvent(data);
+        loadGoods(data);
+        var egs=data.goods;
+        egs.forEach(function (v) {
+            $("datalist").append("<option value='"+v.goodsName+"'/>");
+        });
+
+    }
+    function loadGoods(data) {
+        $.each(data.goods, function (k, v) {
+            $("#goods-store-tb").append('<tr>' +
+                '<td><input class="goods-select-cb" value="' + v.id + '" type="checkbox" /></td>' +
+                '<td style="display: none;">' + v.typeId + '</td>' +
+                '<td>' + v.goodsNo + '</td>' +
+                '<td>' + v.type + '</td>' +
+                '<td>' + v.goodsName + '</td>' +
+                '<td>' + v.price + '</td>' +
+                '</tr>');
+        });
+        $("#goods-store-tb").append("<tr><td colspan='5' style='text-align: right'>共<span style='font-weight: bold'>"+data.goods.length+"</span>件</td></tr>");
+        $("#goods-store-tb").find("th input[type=checkbox]").on("change", function () {
+            $("#goods-store-tb").find(".goods-select-cb").prop("checked", this.checked);
+        });
+    }
+    function loadEvent(data) {
+        $.each(data.event, function (k, v) {
+            if (k == "eventType") {
+                v = v == 1 ? "线下义卖" : "线上义卖";
+            }
+            if (k == "startTime" || k == "endTime") {
+                v = Shinez.FormateDate(new Date(v), "yyyy-MM-dd HH:mm");
+            }
+            if (k == "isEnable") {
+                v = v == true ? "<span title='正常' style='color: lawngreen;font-size: 24px;'>●</span>" : "<span title='关闭' style='color: red;font-size: 24px;'>● </span>";
+            }
+            $("#event-tb").find("td[data-name=" + k + "]").html(v);
+        });
+    }
+
+    function setShow(obj, v) {
+        var id = $(obj).parents("tr").attr("data-id");
+        var goodsName = $(obj).parents("tr").find("td[data-name=goodsName]").html();
+        bootbox.confirm("确定要将商品[" + goodsName + "]" + (v == 1 ? "上架？" : "下架？") + "", function (result) {
+            if (result) {
+                Shinez.put(root + "/updateShow", {isShow: v, id: id}, function (ret) {
+                    if(ret.status==0) {
+                        showTip("success", "操作成功");
+                        obj.bootstrapSwitch("state",v,true);
+                    }else{
+                        showTip("danger",ret.info);
+                    }
+                });
+            }
+        });
+//        var isShow = $(obj).parents("tr").find("td[data-name=isShow]").attr("data-value");
+    }
+
+    function setGoodsCountPlusToZero() {
+        $("#modal-edit").find("[name=goodsCountPlus]").val(0);
+    }
+
+</script>

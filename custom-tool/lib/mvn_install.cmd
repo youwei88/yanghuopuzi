@@ -1,0 +1,1 @@
+mvn install:install-file  -Dfile=taobao-sdk-java-auto_1455552377940-20160607.jar -DgroupId=com.ganshane.specs -DartifactId=taobao-sdk -Dversion=20160607 -Dpackaging=jar

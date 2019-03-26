@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wmeimob.custom.yhpz.dao.WarehouseMapper" >
+  <resultMap id="BaseResultMap" type="com.wmeimob.custom.yhpz.bean.Warehouse" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="branch_id" property="branchId" jdbcType="INTEGER" />
+    <result column="house_no" property="houseNo" jdbcType="VARCHAR" />
+    <result column="house_type" property="houseType" jdbcType="INTEGER" />
+    <result column="house_name" property="houseName" jdbcType="VARCHAR" />
+    <result column="free_post" property="freePost" jdbcType="DECIMAL" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

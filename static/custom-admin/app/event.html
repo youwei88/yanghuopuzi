@@ -1,0 +1,479 @@
+<div id="modals">
+    <div class="modal fade" id="modal--img-view" tabindex="-1" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">预览</h4>
+                </div>
+                <div class="modal-body">
+                    <img src="" alt="" width="550px;" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn dark btn-outline radius6" data-dismiss="modal"><i
+                            class="fa fa-close"></i> 关闭
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="modal-qr" tabindex="-1" role="basic" aria-hidden="true" style="z-index: 99999">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">使用微信扫一扫预览</h4>
+                </div>
+                <div class="modal-body" style="text-align: center;margin: auto" id="qrcode">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn dark btn-outline radius6" data-dismiss="modal"><i
+                            class="fa fa-close"></i> 关闭
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="modal-full" tabindex="-1" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 450px;margin-left: 100px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <form action="javascript:;" method="post">
+                    <input type="hidden" name="id" value="" />
+                    <input type="hidden" name="intro" value="" />
+                    <input type="hidden" name="introPublic" value="1" />
+                    <div class="modal-body">
+                        <div id="editor-trigger" style="height: 450px;">
+                            <p>请输入内容...</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a type="button" class="btn  blue preview radius6" data-toggle="modal" href="#modal-qr"><i class="fa fa-eye"></i> 预览</a>
+                        <button type="button" class="btn dark green btn-save radius6"><i class="fa fa-save"></i> 保存
+                        </button>
+                        <button type="button" class="btn dark btn-outline radius6" data-dismiss="modal"><i
+                                class="fa fa-close"></i> 关闭
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="modal-add" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">新增</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:;" method="post">
+                        <table class="table table-striped table-bordered " width="100%">
+                            <tr>
+                                <th>学校名称</th>
+                                <td>
+                                    <select name="schoolId" class="form-control input-medium">
+                                    </select>
+                                    <input type="hidden" name="school" data-ref="schoolId" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>提货截止</th>
+                                <td>
+                                    <div class="input-group date  form_datetime">
+                                        <input type="text" size="16" name="pickUpTime" readonly class="form-control input-medium inline" />
+                                        <span class="input-group-btn">
+                                        <button class="btn default date-set" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                        </span>
+                                    </div>
+                                    <p><span class="required-star">* 提货通知时间以该日期的前一天为准，请认真填写。</span></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>提货地点</th>
+                                <td>
+                                    <input type="text" class="form-control inline input-large" name="pickUpAddress" /> <span><i class="fa fa-question-circle"
+                                                                                                                                 title="系统在发出提货通知时，将会以此地点为准向符合条件的用户推送提货提醒"></i></span>
+                                    <p><span class="required-star">* 提货通知地点以该项为准，请认真填写。</span></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>开始时间</th>
+                                <td>
+                                    <div class="input-group date  form_datetime">
+                                        <input type="text" size="16" name="startTime" readonly class="form-control input-medium inline" />
+                                        <span class="input-group-btn">
+                                        <button class="btn default date-set" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>结束时间</th>
+                                <td>
+                                    <div class="input-group date  form_datetime">
+                                        <input type="text" size="16" name="endTime" readonly class="form-control input-medium inline" />
+                                        <span class="input-group-btn">
+                                        <button class="btn default date-set" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="hidden" name="isEnable" value="false" />
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn dark green btn-save radius6"><i class="fa fa-save"></i> 保存  </button>
+                    <button type="button" class="btn dark btn-outline radius6" data-dismiss="modal"><i  class="fa fa-close"></i> 关闭 </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="modal-edit" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">修改</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:;" method="post">
+                        <input type="hidden" name="id" />
+                        <table class="table table-striped table-bordered " width="100%">
+                            <tr>
+                                <th>学校名称</th>
+                                <td>
+                                    <select name="schoolId" class="form-control input-medium" readonly disabled>
+                                    </select>
+                                    <input type="hidden" name="school" data-ref="schoolId" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>提货截止</th>
+                                <td>
+                                    <div class="input-group date  form_datetime">
+                                        <input type="text" size="16" name="pickUpTime" readonly class="form-control input-medium inline" />
+                                        <span class="input-group-btn">
+                                        <button class="btn default date-set" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                        </span>
+                                    </div>
+                                    <p><span class="required-star">* 提货通知时间以该日期的前一天为准，请认真填写。</span></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>提货地点</th>
+                                <td>
+                                    <input type="text" class="form-control inline input-large" name="pickUpAddress" /> <span><i class="fa fa-question-circle"
+                                                                                       title="系统在发出提货通知时，将会以此地点为准向符合条件的用户推送提货提醒"></i></span>
+                                    <p><span class="required-star">* 提货通知地点以该项为准，请认真填写。</span></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>开始时间</th>
+                                <td>
+                                    <div class="input-group date  form_datetime">
+                                        <input type="text" size="16" name="startTime" readonly class="form-control input-medium inline" />
+                                        <span class="input-group-btn">
+                                        <button class="btn default date-set" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>结束时间</th>
+                                <td>
+                                    <div class="input-group date  form_datetime">
+                                        <input type="text" size="16" name="endTime" readonly class="form-control input-medium inline" />
+                                        <span class="input-group-btn">
+                                        <button class="btn default date-set" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn dark green btn-save radius6"><i class="fa fa-check"></i> 保存  </button>
+                    <button type="button" class="btn dark btn-outline radius6" data-dismiss="modal"><i  class="fa fa-close"></i> 关闭 </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+<div class="row">
+    <div class="top-handle-btn">
+        <form id="search-form" action="javascript:;">
+            每页显示：<input name="pageSize" class="form-control  input-small inline" type="number" min="2" max="50" style="width: 80px;"
+                value="10" />
+            <!--<input type="text" class="form-control input-medium inline" list="schoollist" placeholder="输入学校查询" name="school"/>-->
+            <!--<datalist id="schoollist">-->
+
+            <!--</datalist>-->
+            <select name="schoolId" class=" input-medium form-control inline select2-multiple">
+                <option value="">选择学校</option>
+            </select>
+            <button class="btn purple right search radius6"><i class="fa fa-search"></i> 查询</button>
+            <button class='btn green radius6' data-toggle='modal' href='#modal-add'><i class="fa fa-plus"></i> 添加</button>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <table id="data-table" class="table table-striped table-bordered table-hover" width="100%">
+        <thead>
+            <tr>
+                <th>学校</th>
+                <th>提货截止</th>
+                <th>提货点</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>是否启用</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+</div>
+
+<script type="text/javascript" src="js/wangEditor.min.js"></script>
+<script type="text/javascript">
+    var state = history.state;
+    var url = state.html + "/" + state.en;
+    var editor;
+    console.log(url);
+    $(function () {
+        DataTable.init({
+            url: url, //ajax请求url
+            tableName: "data-table", //数据表table id
+            paramsFormName: "search-form", //查询参数form id
+            modal: "modals", //模态框div
+            columns: [ //列对应的字段数组，注意顺序
+                {
+                    data: "school"
+                },
+                {
+                    data: "schoolId",
+                    visible: false
+                },
+                {
+                    data: "pickUpTime",
+                    type: "datetime"
+                },
+                {
+                    data: "pickUpAddress"
+                },
+                {
+                    data: "startTime",
+                    type: "datetime"
+                },
+                {
+                    data: "endTime",
+                    type: "datetime"
+                },
+                {
+                    data: "isEnable",
+                    convert: "1=> <input type='checkbox' class='ck-sw' data-size='small' checked >" +
+                        "|0=><input class='ck-sw'   type='checkbox' data-size='small'>"
+                },
+            ],
+            options: [ //操作区域(id)
+                {
+                    icon: "fa fa-edit",
+                    name: "编辑",
+                    color: "green",
+                    option: "modal-edit",
+                    url: url,
+                    edit: true,
+                    editMain: true,
+                    //                    visible:false,
+                },
+                {
+                    icon: "fa fa-file-text",
+                    name: "简介",
+                    color: "blue",
+                    option: "modal-full",
+                    pre: "getIntro",
+                    before: "saveIntro",
+                    url: url,
+                    edit: true
+                },
+                {
+                    icon: "fa fa-gift",
+                    name: "配置商品",
+                    color: "purple",
+                    pre: "openToEditEventGoods",
+                },
+                {
+                    icon: "fa fa-remove",
+                    name: "删除",
+                    color: "red",
+                    del: url,
+                    msg: "删除活动将同时清空商品的关联，操作不可逆，真要这样做吗？"
+                }
+            ],
+            handles: {
+                insert: [{
+                    url: url,
+                    modalId: "modal-add"
+                }, ],
+            },
+            endFnOnce: "loadSchool",
+            endFn: "registerSwitchClick"
+        });
+
+
+        $(".form_datetime").datetimepicker({
+            format: "yyyy-mm-dd hh:ii",
+            language: 'zh-CN',
+            autoclose: 1,
+        });
+
+
+        $("select[name=schoolId]").select2();
+
+
+        editor = new wangEditor('editor-trigger');
+        editor.config.customUpload = true;
+        editor.config.customUploadInit = function () {
+            QiniuInit.init(editor, "/main/getQiniuToken2", getUploadDomain());
+        };
+        // 取消粘贴过滤
+        editor.config.pasteFilter = false;
+        // 关闭js过滤
+        editor.config.jsFilter = false;
+
+        editor.config.menus = $.map(wangEditor.config.menus, function (item, key) {
+            if (item === 'fullscreen') {
+                return null;
+            }
+            return item;
+        });
+
+        editor.create();
+    });
+
+    function registerSwitchClick() {
+        $('.ck-sw').on('switchChange.bootstrapSwitch', function (e, state) {
+            var $this = $(this);
+            $this.bootstrapSwitch('state', !state, true);
+            setEnable($this, state);
+        });
+    }
+
+
+    function loadSchool(data) {
+        var specs = data.schoolyardList;
+        $.each(specs, function (k, v) {
+            $("select[name=schoolId]").append("<option value='" + v.id + "'>" + v.school + "</option>");
+        });
+        $("select[name=schoolId]").change();
+    }
+
+    function getIntro(id) {
+        Shinez.loading();
+        $("input[name=intro]").val("");
+        editor.$txt.html('');
+        Shinez.get(url + "/fullText", {
+            id: id
+        }, function (ret) {
+            console.log(ret);
+            var e = ret.data.obj;
+            if (e != null) {
+                editor.$txt.html(e.intro == null ? '' : e.intro);
+            }
+            Shinez.loadingComplete();
+        });
+    }
+
+    function saveIntro() {
+        var content = editor.$txt.html();
+        $("input[name=intro]").val(content);
+        return true;
+    }
+
+    function setEnable(obj, v) {
+        var id = $(obj).parents("tr").attr("data-id");
+        bootbox.confirm("确定要" + (!v ? "关闭" : "开启") + "该活动？", function (result) {
+            if (result) {
+                Shinez.put(url + "/setEnableStatus", {
+                    isEnable: v,
+                    id: id
+                }, function (ret) {
+                    if (ret.status == 0) {
+                        showTip("success", "操作成功");
+                        obj.bootstrapSwitch("state", v, true);
+                    } else {
+                        showTip("danger", ret.info);
+                    }
+
+                });
+            }
+        });
+        //        var isShow = $(obj).parents("tr").find("td[data-name=isShow]").attr("data-value");
+
+    }
+
+    function openToEditEventGoods(id) {
+        history.pushState({
+            "en": state.en,
+            "enid": id,
+            html: "/event_goods",
+            params: "en=" + state.en + "&enid=" + id
+        }, null, "#" + state.html + "_goods?en=" + state.en + "&enid=" + id);
+        $("#page-content").html("").css("display", "none").load("/app/event_goods.html", function () {
+            $("#page-content").fadeIn(300);
+            document.getElementsByClassName("page-title")[0].getElementsByTagName("i")[0].setAttribute("class",
+                map["/event/" + state.en + "/*/goods"].fnIcon);
+            document.getElementsByClassName("page-title")[0].getElementsByTagName("span")[0].innerHTML = map[
+                "/event/" + state.en + "/*/goods"].fnName;
+        });
+    }
+
+    $(".preview").on("click", function () {
+        var html = editor.$txt.html();
+        Shinez.post("/notice/savePreview", {
+            content: html
+        }, function (ret) {
+            if (ret.status == 0) {
+                var link = ret.data.link;
+                $("#qrcode").html("");
+                var qrcode = new QRCode("qrcode", {
+                    text: link,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+                $("#modal-qr").find("img").css("margin", "auto");
+            } else {
+                showTip("danger", ret.info);
+            }
+        });
+    });
+</script>

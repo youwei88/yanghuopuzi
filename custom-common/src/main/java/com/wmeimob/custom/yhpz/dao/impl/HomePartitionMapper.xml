@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wmeimob.custom.yhpz.dao.HomePartitionMapper">
+    <resultMap id="BaseResultMap" type="com.wmeimob.custom.yhpz.bean.HomePartition">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="lite_id" property="liteId" jdbcType="INTEGER"/>
+        <result column="partition_name" property="partitionName" jdbcType="VARCHAR"/>
+        <result column="img" property="img" jdbcType="VARCHAR"/>
+        <result column="partition_type" property="partitionType" jdbcType="INTEGER"/>
+        <result column="order_no" property="orderNo" jdbcType="INTEGER"/>
+        <result column="data_id" property="dataId" jdbcType="VARCHAR"/>
+        <result column="parent_id" property="parentId" jdbcType="INTEGER"/>
+    </resultMap>
+
+
+    <resultMap type="com.wmeimob.custom.yhpz.bean.HomePartition" id="TreeMap" extends="BaseResultMap">
+        <collection property="homePartitions" column="id" ofType="com.wmeimob.custom.yhpz.bean.HomePartition"
+                    select="selectChildren"/>
+    </resultMap>
+
+    <update id="updateList">
+        <foreach collection="list" item="map" index="index" open=" " separator=";" close=" ">
+            UPDATE home_partition
+            SET partition_name = #{map.partitionName}
+            ,img = #{map.img}
+            ,partition_type = #{map.partitionType}
+            ,order_no = #{map.orderNo}
+            ,data_id=#{map.dataId}
+            WHERE id=#{map.id} AND lite_id = #{map.liteId}
+        </foreach>
+    </update>
+
+    <delete id="deleteList">
+        <foreach collection="list" item="map" index="index" open=" " separator=";" close=" ">
+            DELETE  FROM home_partition
+            WHERE id=#{map.id} AND lite_id = #{map.liteId}
+        </foreach>
+    </delete>
+</mapper>
